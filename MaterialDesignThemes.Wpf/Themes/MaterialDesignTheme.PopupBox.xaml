@@ -347,7 +347,7 @@
                                 <Border Background="White" Opacity="0.002" />
                                 <ContentControl Content="{TemplateBinding PopupContent}" ContentTemplate="{TemplateBinding PopupContentTemplate}"      
                                                 Visibility="{TemplateBinding IsEnabled, Converter={StaticResource BooleanToVisibilityConverter}}"
-                                                Margin="5" Padding="8"
+                                                Margin="5" Padding="8" Focusable="False" IsTabStop="False"
                                                 Opacity="0" x:Name="PART_PopupContentControl">
                                     <ContentControl.Resources>
                                         <ResourceDictionary>

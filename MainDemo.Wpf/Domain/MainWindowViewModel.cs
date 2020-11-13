@@ -125,6 +125,11 @@ namespace MaterialDesignDemo.Domain
                         DocumentationLink.DemoPageLink<ColorToolViewModel>("Demo View Model"),
                         DocumentationLink.ApiLink<PaletteHelper>()
                     }),
+                new DemoItem("Theme Editor", new ThemeEditor(),
+                    new []
+                    {
+                        DocumentationLink.ApiLink<ThemeEditor>()
+                    }),
                 new DemoItem("Buttons", new Buttons { DataContext = new ButtonsViewModel() } ,
                     new []
                     {

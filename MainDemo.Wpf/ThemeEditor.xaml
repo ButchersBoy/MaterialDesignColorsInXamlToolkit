@@ -1,0 +1,613 @@
+﻿<UserControl x:Class="MaterialDesignDemo.ThemeEditor"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:viewModel="clr-namespace:MaterialDesignColors.WpfExample.Domain"
+        xmlns:sys="clr-namespace:System;assembly=System.Runtime"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="13"
+        TextOptions.TextFormattingMode="Ideal" 
+        TextOptions.TextRenderingMode="Auto"
+        Background="{DynamicResource MaterialDesignPaper}"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        mc:Ignorable="d"
+        d:DesignHeight="740" d:DesignWidth="2000">
+    <UserControl.DataContext>
+        <viewModel:ThemeEditorViewModel PropertyChanged="EditorViewModel_PropertyChanged" />
+    </UserControl.DataContext>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="1*"/>
+        </Grid.RowDefinitions>
+
+        <materialDesign:ColorZone Padding="16" 
+                                  materialDesign:ShadowAssist.ShadowDepth="Depth2"
+                                  Mode="PrimaryMid" 
+                                  DockPanel.Dock="Top">
+            <StackPanel Orientation="Horizontal">
+                <Button ToolTip="New Theme Project" 
+                        ToolTipService.InitialShowDelay="0"
+                        Style="{StaticResource MaterialDesignFlatButton}"
+                        Foreground="{Binding RelativeSource={RelativeSource AncestorType={x:Type FrameworkElement}}, Path=(TextElement.Foreground)}"
+                        Click="NewProject_Button_Click">
+                    <StackPanel Orientation="Horizontal">
+                        <materialDesign:PackIcon Kind="FileEditOutline" VerticalAlignment="Center" />
+                        <TextBlock Margin="8 0 0 0" Style="{StaticResource MaterialDesignBody1TextBlock}"
+                                   Text="New" />
+                    </StackPanel>
+                </Button>
+                <Button ToolTip="Create From DemoApp Color Tool" 
+                        ToolTipService.InitialShowDelay="0"
+                        Style="{StaticResource MaterialDesignFlatButton}"
+                        Foreground="{Binding RelativeSource={RelativeSource AncestorType={x:Type FrameworkElement}}, Path=(TextElement.Foreground)}"
+                        Click="CreateFrom_Button_Click">
+                    <StackPanel Orientation="Horizontal">
+                        <materialDesign:PackIcon Kind="Theme" VerticalAlignment="Center" />
+                        <TextBlock Margin="8 0 0 0" Style="{StaticResource MaterialDesignBody1TextBlock}"
+                                   Text="From Color Tool" />
+                    </StackPanel>
+                </Button>
+                <Button ToolTip="Open Theme Project" 
+                            ToolTipService.InitialShowDelay="0"
+                            Style="{StaticResource MaterialDesignFlatButton}"
+                            Foreground="{Binding RelativeSource={RelativeSource AncestorType={x:Type FrameworkElement}}, Path=(TextElement.Foreground)}"
+                            Click="OpenProject_Button_Click">
+                    <StackPanel Orientation="Horizontal">
+                        <materialDesign:PackIcon Kind="FileSearchOutline" VerticalAlignment="Center" />
+                        <TextBlock Margin="8 0 0 0" Style="{StaticResource MaterialDesignBody1TextBlock}"
+                                   Text="Open" />
+                    </StackPanel>
+                </Button>
+                <Button ToolTip="Save Current Project" 
+                            ToolTipService.InitialShowDelay="0"
+                            Style="{StaticResource MaterialDesignFlatButton}"
+                            Foreground="{Binding RelativeSource={RelativeSource AncestorType={x:Type FrameworkElement}}, Path=(TextElement.Foreground)}"
+                            Click="SaveProject_Button_Click">
+                    <StackPanel Orientation="Horizontal">
+                        <materialDesign:PackIcon Kind="ContentSaveOutline"  VerticalAlignment="Center" />
+                        <TextBlock Margin="8 0 0 0" Style="{StaticResource MaterialDesignBody1TextBlock}"
+                                   Text="Save" />
+                    </StackPanel>
+                </Button>
+                <Button ToolTip="Save Current Project As" 
+                            ToolTipService.InitialShowDelay="0"
+                            Style="{StaticResource MaterialDesignFlatButton}"
+                            Foreground="{Binding RelativeSource={RelativeSource AncestorType={x:Type FrameworkElement}}, Path=(TextElement.Foreground)}"
+                            Click="SaveProjectAs_Button_Click">
+                    <StackPanel Orientation="Horizontal">
+                        <materialDesign:PackIcon Kind="ContentSaveSettingsOutline"  VerticalAlignment="Center" />
+                        <TextBlock Margin="8 0 0 0" Style="{StaticResource MaterialDesignBody1TextBlock}"
+                                   Text="Save As" />
+                    </StackPanel>
+                </Button>
+                <Button ToolTip="Apply current colors to the Demo Application" 
+                        ToolTipService.InitialShowDelay="0"
+                        Style="{StaticResource MaterialDesignFlatButton}"
+                        Foreground="{Binding RelativeSource={RelativeSource AncestorType={x:Type FrameworkElement}}, Path=(TextElement.Foreground)}"
+                        Click="ApplyToDemoApp_Button_Click">
+                    <StackPanel Orientation="Horizontal">
+                        <materialDesign:PackIcon Kind="Paint" VerticalAlignment="Center" />
+                        <TextBlock Margin="8 0 0 0" Style="{StaticResource MaterialDesignBody1TextBlock}"
+                                   Text="Apply to DemoApp" />
+                    </StackPanel>
+                </Button>
+            </StackPanel>
+        </materialDesign:ColorZone>
+
+        <materialDesign:DialogHost x:Name="ColorEditorDialogHost" 
+                                   Grid.Row="1" 
+                                   Grid.ColumnSpan="2" 
+                                   DialogClosing="AcceptColor">
+            <materialDesign:DialogHost.DialogContent>
+                <Grid Margin="0,0,0,10" x:Name="ColorEditorDialog" >
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <materialDesign:ColorPicker Width="200" Height="200" Color="{Binding SelectedColor, Delay=200}"/>
+
+                    <Grid Grid.Row="1" Margin="10" >
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="1*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock Text="A:" Margin="3" VerticalAlignment="Center" />
+                        <Slider Style="{StaticResource MaterialDesignSlider}" Grid.Column="1" x:Name="alphaslider" Minimum="0" Maximum="255" Margin="3" 
+                                ValueChanged="Slider_ValueChanged" SmallChange="1" />
+                    </Grid>
+
+                    <TextBox Style="{StaticResource MaterialDesignFloatingHintTextBox}" materialDesign:HintAssist.Hint="Hex" 
+                             Text="{Binding SelectedColor, UpdateSourceTrigger=PropertyChanged}" Grid.Row="2" Margin="10,0" />
+
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Grid.Row="3" >
+                        <Button Style="{StaticResource MaterialDesignFlatButton}"
+                                IsDefault="True"
+                                Margin="0 8 8 0"
+                                Command="materialDesign:DialogHost.CloseDialogCommand"
+                                x:Name="ColorEditorDialogAcceptButton">
+                            <!--<Button.CommandParameter>
+                                <system:Boolean>True</system:Boolean>
+                            </Button.CommandParameter>-->
+                            ACCEPT
+                        </Button>
+                        <Button Style="{StaticResource MaterialDesignFlatButton}"
+                                IsCancel="True"
+                                Margin="0 8 8 0"
+                                Command="materialDesign:DialogHost.CloseDialogCommand">
+                            <!--<Button.CommandParameter>
+                                <system:Boolean>False</system:Boolean>
+                            </Button.CommandParameter>-->
+                            CANCEL
+                        </Button>
+                    </StackPanel>
+                </Grid>
+            </materialDesign:DialogHost.DialogContent>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="1*"/>
+                </Grid.ColumnDefinitions>
+                <GroupBox Header="Colors:" Margin="15,15,0,15"  Grid.Row="1"
+                          materialDesign:ColorZoneAssist.Mode="Standard"
+                          Style="{StaticResource MaterialDesignCardGroupBox}"
+                          materialDesign:ShadowAssist.ShadowDepth="Depth0" Grid.RowSpan="2">
+                    <ScrollViewer  HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+                        <ItemsControl ItemsSource="{Binding Brushes}">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate DataType="{x:Type viewModel:BrushColor}">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="1*" MaxWidth="200"/>
+                                            <ColumnDefinition Width="98"/>
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock Text="{Binding Name, StringFormat={}{0}:}" Margin="3" VerticalAlignment="Center" 
+                                                   TextAlignment="Right"/>
+                                        <Button Style="{StaticResource MaterialDesignFlatButton}" 
+                                                Grid.Column="1" Margin="3" BorderThickness="2" 
+                                                BorderBrush="{DynamicResource MaterialDesignDarkSeparatorBackground}" 
+                                                Cursor="Hand" 
+                                                Click="EditColorButton_Click" Tag="Primary">
+                                            <Button.Background>
+                                                <DrawingBrush TileMode="Tile" Viewport="0,0,20,21"
+                                                              ViewportUnits="Absolute" Stretch="Fill" 
+                                                              ViewboxUnits="RelativeToBoundingBox">
+                                                    <DrawingBrush.Drawing>
+                                                        <DrawingGroup>
+                                                            <GeometryDrawing Brush="#FFE2E2E2" Geometry="M0,0 L0,5 0,10 0,5, 10,5 10,10 5,10 5,0 Z"/>
+                                                            <GeometryDrawing>
+                                                                <GeometryDrawing.Brush>
+                                                                    <SolidColorBrush Color="{Binding Color}" />
+                                                                </GeometryDrawing.Brush>
+                                                                <GeometryDrawing.Geometry>
+                                                                    <RectangleGeometry Rect="0 0 10 10" />
+                                                                </GeometryDrawing.Geometry>
+                                                            </GeometryDrawing>
+                                                        </DrawingGroup>
+                                                    </DrawingBrush.Drawing>
+                                                </DrawingBrush>
+                                            </Button.Background>
+                                        </Button>
+                                    </Grid>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </ScrollViewer>
+                </GroupBox>
+
+                <GroupBox Header="Preview:" 
+                          Margin="15"  
+                          Grid.Column="1"  
+                          Grid.Row="1"
+                          x:Name="previewbox"
+                          materialDesign:ColorZoneAssist.Mode="Standard"
+                          Style="{StaticResource MaterialDesignCardGroupBox}"
+                          materialDesign:ShadowAssist.ShadowDepth="Depth0" Grid.RowSpan="2">
+                    <!--<materialDesign:ColorPicker/>-->
+                    <Grid x:Name="samplegrid" 
+                          Background="{DynamicResource MaterialDesignPaper}"        
+                          TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+                          TextBlock.Foreground="{DynamicResource MaterialDesignBody}">
+                        <Grid.Resources>
+                            <ResourceDictionary>
+                                <ResourceDictionary.MergedDictionaries>
+                                    <materialDesign:CustomColorTheme BaseTheme="Light" PrimaryColor="Purple" SecondaryColor="Lime"  />
+                                    <!--<ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
+                                    <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.PopupBox.xaml" />-->
+                                </ResourceDictionary.MergedDictionaries>
+                            </ResourceDictionary>
+                        </Grid.Resources>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="1*"/>
+                        </Grid.RowDefinitions>
+                        <materialDesign:ColorZone Padding="8" 
+                                                  materialDesign:ShadowAssist.ShadowDepth="Depth2"
+                                                  Mode="PrimaryMid">
+
+                            <Grid>
+                                <StackPanel Orientation="Horizontal">
+                                    <ToggleButton Style="{StaticResource MaterialDesignHamburgerToggleButton}"
+                                              IsChecked="False"/>
+                                    <TextBlock Text="App Title Area" 
+                                               VerticalAlignment="Center" 
+                                               Margin="10,0,0,0"
+                                               Style="{StaticResource  MaterialDesignHeadline6TextBlock }" />
+                                </StackPanel>
+
+                                <Button ToolTip="Command 1" 
+                                        ToolTipService.InitialShowDelay="0"
+                                        HorizontalAlignment="Right"
+                                        Style="{StaticResource MaterialDesignFlatButton}"
+                                        Foreground="{Binding RelativeSource={RelativeSource AncestorType={x:Type FrameworkElement}}, Path=(TextElement.Foreground)}" >
+                                    <StackPanel Orientation="Horizontal">
+                                        <materialDesign:PackIcon Kind="MicrosoftXboxController" VerticalAlignment="Center" />
+                                        <TextBlock Margin="8 0 0 0" Style="{StaticResource MaterialDesignBody1TextBlock}"
+                                                   Text="Command 1" />
+                                    </StackPanel>
+                                </Button>
+
+                            </Grid>
+
+
+
+                        </materialDesign:ColorZone>
+                        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="300"/>
+                                    <ColumnDefinition Width="300"/>
+                                    <ColumnDefinition Width="300"/>
+
+                                </Grid.ColumnDefinitions>
+                                <GroupBox Header="Form" 
+                                      Margin="10"
+                                      materialDesign:ColorZoneAssist.Mode="Standard"
+                                      materialDesign:ShadowAssist.ShadowDepth="Depth0"
+                                      Style="{StaticResource MaterialDesignCardGroupBox}">
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="Auto"/>
+                                        </Grid.RowDefinitions>
+                                        <TextBox Style="{StaticResource MaterialDesignFloatingHintTextBox}" materialDesign:HintAssist.Hint="Text Field" Margin="3" />
+                                        <ComboBox Style="{StaticResource MaterialDesignFloatingHintComboBox}" Grid.Row="1" materialDesign:HintAssist.Hint="Selector Field" Margin="3">
+                                            <sys:String>option 1</sys:String>
+                                            <sys:String>option 2</sys:String>
+                                            <sys:String>option 3</sys:String>
+                                            <sys:String>option 4</sys:String>
+                                        </ComboBox>
+                                        <DatePicker Style="{StaticResource MaterialDesignFloatingHintDatePicker}" Grid.Row="2" materialDesign:HintAssist.Hint="Date Selector" Margin="3" />
+                                    </Grid>
+                                </GroupBox>
+                                <GroupBox Header="Buttons" 
+                                      Margin="10"
+                                      Grid.Row="1"
+                                      materialDesign:ColorZoneAssist.Mode="Standard"
+                                      materialDesign:ShadowAssist.ShadowDepth="Depth0"
+                                      Style="{StaticResource MaterialDesignCardGroupBox}">
+                                    <UniformGrid Columns="3" HorizontalAlignment="Stretch" >
+                                        <Button Style="{StaticResource MaterialDesignFlatButton}" Margin="5">FLAT</Button>
+                                        <Button Style="{StaticResource MaterialDesignFlatAccentButton}" Margin="5">Flat AC</Button>
+                                        <Button Style="{StaticResource MaterialDesignFlatAccentBgButton}" Margin="5">Flat AC BG</Button>
+                                        <Button Style="{StaticResource MaterialDesignFlatLightBgButton }" Margin="5">Flat PR</Button>
+                                        <Button Style="{StaticResource MaterialDesignFlatMidBgButton }" Margin="5">Flat PR</Button>
+                                        <Button Style="{StaticResource MaterialDesignFlatDarkBgButton }" Margin="5">Flat PR</Button>
+                                        <Button Style="{StaticResource MaterialDesignFloatingActionButton}" Margin="5">Act</Button>
+                                        <Button Style="{StaticResource MaterialDesignFloatingActionAccentButton}" Margin="5">Act Ac</Button>
+                                        <Button Style="{StaticResource MaterialDesignIconButton}" Margin="5">
+                                            <materialDesign:PackIcon Kind="Emoticon" />
+                                        </Button>
+                                    </UniformGrid>
+                                </GroupBox>
+                                <GroupBox Header="Toggles" 
+                                      Margin="10"
+                                      Grid.Column="1"
+                                      materialDesign:ColorZoneAssist.Mode="Standard"
+                                      materialDesign:ShadowAssist.ShadowDepth="Depth0"
+                                      Style="{StaticResource MaterialDesignCardGroupBox}">
+                                    <UniformGrid Columns="5" >
+                                        <CheckBox Style="{StaticResource MaterialDesignLightCheckBox}" IsChecked="True" HorizontalAlignment="Center" />
+                                        <CheckBox Style="{StaticResource MaterialDesignCheckBox}" IsChecked="True" HorizontalAlignment="Center" />
+                                        <CheckBox Style="{StaticResource MaterialDesignDarkCheckBox}" IsChecked="True" HorizontalAlignment="Center" />
+                                        <CheckBox Style="{StaticResource MaterialDesignAccentCheckBox}" IsChecked="True" HorizontalAlignment="Center" />
+                                        <CheckBox Style="{StaticResource MaterialDesignCheckBox}" IsChecked="True" IsEnabled="False" HorizontalAlignment="Center" />
+                                        <RadioButton Style="{StaticResource MaterialDesignDarkRadioButton}" IsChecked="True" HorizontalAlignment="Center" />
+                                        <RadioButton Style="{StaticResource MaterialDesignRadioButton}" IsChecked="True" HorizontalAlignment="Center" />
+                                        <RadioButton Style="{StaticResource MaterialDesignLightRadioButton}" IsChecked="True" HorizontalAlignment="Center" />
+                                        <RadioButton Style="{StaticResource MaterialDesignAccentRadioButton}" IsChecked="True" GroupName="accent" HorizontalAlignment="Center" />
+                                        <RadioButton Style="{StaticResource MaterialDesignRadioButton}" IsChecked="True" IsEnabled="False" GroupName="disabled" HorizontalAlignment="Center" />
+                                        <ToggleButton Style="{StaticResource MaterialDesignSwitchDarkToggleButton}" IsChecked="True" HorizontalAlignment="Center" />
+                                        <ToggleButton Style="{StaticResource MaterialDesignSwitchToggleButton}" IsChecked="True" HorizontalAlignment="Center" />
+                                        <ToggleButton Style="{StaticResource MaterialDesignSwitchLightToggleButton}" IsChecked="True" HorizontalAlignment="Center" />
+                                        <ToggleButton Style="{StaticResource MaterialDesignSwitchAccentToggleButton}" IsChecked="True" HorizontalAlignment="Center" />
+                                        <ToggleButton Style="{StaticResource MaterialDesignSwitchToggleButton}" IsChecked="True" IsEnabled="False" HorizontalAlignment="Center" />
+                                    </UniformGrid>
+                                </GroupBox>
+                                <GroupBox Header="DataGrid" 
+                                      Margin="10"
+                                      Grid.Column="1"
+                                      Grid.Row="1"
+                                      materialDesign:ColorZoneAssist.Mode="Standard"
+                                      materialDesign:ShadowAssist.ShadowDepth="Depth0"
+                                      Style="{StaticResource MaterialDesignCardGroupBox}">
+                                    <DataGrid IsReadOnly="True">
+                                        <DataGrid.Columns>
+                                            <DataGridTextColumn Binding="{Binding}" Header="Column Header:" />
+                                        </DataGrid.Columns>
+                                        <DataGrid.Items>
+                                            <sys:String>Row1</sys:String>
+                                            <sys:String>Row2</sys:String>
+                                            <sys:String>Row3</sys:String>
+                                            <sys:String>Row4</sys:String>
+                                            <sys:String>Row5</sys:String>
+                                        </DataGrid.Items>
+                                    </DataGrid>
+                                </GroupBox>
+                                <!--<GroupBox Header="Tabs and Navigation Rail"
+                                      Style="{StaticResource MaterialDesignCardGroupBox}"
+                                      materialDesign:ColorZoneAssist.Mode="Standard"
+                                      materialDesign:ShadowAssist.ShadowDepth="Depth0"
+                                      Margin="10" 
+                                      Grid.RowSpan="2"
+                                      Grid.Column="2">
+                                    <StackPanel>
+                                        <TabControl materialDesign:ColorZoneAssist.Mode="Standard" 
+                                                    HorizontalContentAlignment="Stretch" 
+                                                    VerticalContentAlignment="Stretch" 
+                                                    Margin="0,0,0,20"
+                                                    TabStripPlacement="Top" >
+                                            <TabItem >
+                                                <TabItem.Header>
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <materialDesign:PackIcon HorizontalAlignment="Center" VerticalAlignment="Center" Margin="4" Kind="PodiumFirst"/>
+                                                        <TextBlock Text="FIRST" VerticalAlignment="Center" Margin="0,2,0,0" />
+                                                    </StackPanel>
+                                                </TabItem.Header>
+                                                <TextBlock Padding="2" TextWrapping="Wrap" TextAlignment="Justify"  >
+                                                    Default
+                                                </TextBlock>
+                                            </TabItem>
+                                            <TabItem>
+                                                <TabItem.Header>
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <materialDesign:PackIcon HorizontalAlignment="Center" VerticalAlignment="Center" Kind="PodiumSecond" Margin="4"/>
+                                                        <TextBlock Text="SECOND" VerticalAlignment="Center" Margin="0,2,0,0" />
+                                                    </StackPanel>
+                                                </TabItem.Header>
+                                                <TextBlock Padding="2" TextWrapping="Wrap" TextAlignment="Justify"  >
+                                                    Default - Tab2
+                                                </TextBlock>
+                                            </TabItem>
+                                        </TabControl>
+                                        <TabControl materialDesign:ColorZoneAssist.Mode="PrimaryMid" 
+                                                    HorizontalContentAlignment="Stretch" 
+                                                    VerticalContentAlignment="Stretch" 
+                                                    Margin="0,0,0,20"
+                                                    TabStripPlacement="Top" >
+                                            <TabItem >
+                                                <TabItem.Header>
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <materialDesign:PackIcon HorizontalAlignment="Center" VerticalAlignment="Center" Margin="4" Kind="PodiumFirst"/>
+                                                        <TextBlock Text="FIRST" VerticalAlignment="Center" Margin="0,2,0,0" />
+                                                    </StackPanel>
+                                                </TabItem.Header>
+                                                <Grid>
+                                                    <TextBlock Padding="2" TextWrapping="Wrap" TextAlignment="Justify"  >
+                                                    ColorZone = PrimaryMid
+                                                    </TextBlock>
+                                                </Grid>
+                                            </TabItem>
+                                            <TabItem>
+                                                <TabItem.Header>
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <materialDesign:PackIcon HorizontalAlignment="Center" VerticalAlignment="Center" Kind="PodiumSecond" Margin="4"/>
+                                                        <TextBlock Text="SECOND" VerticalAlignment="Center" Margin="0,2,0,0" />
+                                                    </StackPanel>
+                                                </TabItem.Header>
+                                                <TextBlock Padding="2" TextWrapping="Wrap" TextAlignment="Justify"  >
+                                                    ColorZone = PrimaryMid - Tab2
+                                                </TextBlock>
+                                            </TabItem>
+                                        </TabControl>
+                                        <TabControl materialDesign:ColorZoneAssist.Mode="Accent" 
+                                                    HorizontalContentAlignment="Stretch" 
+                                                    VerticalContentAlignment="Stretch" 
+                                                    Margin="0,0,0,20"
+                                                    TabStripPlacement="Top" >
+                                            <TabItem >
+                                                <TabItem.Header>
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <materialDesign:PackIcon HorizontalAlignment="Center" VerticalAlignment="Center" Margin="4" Kind="PodiumFirst"/>
+                                                        <TextBlock Text="FIRST" VerticalAlignment="Center" Margin="0,2,0,0" />
+                                                    </StackPanel>
+                                                </TabItem.Header>
+                                                <TextBlock Padding="2" TextWrapping="Wrap" TextAlignment="Justify"  >
+                                                    ColorZone = Accent
+                                                </TextBlock>
+                                            </TabItem>
+                                            <TabItem>
+                                                <TabItem.Header>
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <materialDesign:PackIcon HorizontalAlignment="Center" VerticalAlignment="Center" Kind="PodiumSecond" Margin="4"/>
+                                                        <TextBlock Text="SECOND" VerticalAlignment="Center" Margin="0,2,0,0" />
+                                                    </StackPanel>
+                                                </TabItem.Header>
+                                                <TextBlock Padding="2" TextWrapping="Wrap" TextAlignment="Justify"  >
+                                                    ColorZone = Accent - Tab2
+                                                </TextBlock>
+                                            </TabItem>
+                                        </TabControl>
+                                        <TabControl materialDesign:ColorZoneAssist.Mode="Standard" 
+                                                    HorizontalContentAlignment="Left" 
+                                                    VerticalContentAlignment="Stretch" 
+                                                    Margin="0,0,0,20"
+                                                    TabStripPlacement="Top" >
+                                            <TabItem >
+                                                <TabItem.Header>
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <materialDesign:PackIcon HorizontalAlignment="Center" VerticalAlignment="Center" Margin="4" Kind="PodiumFirst"/>
+                                                        <TextBlock Text="FIRST" VerticalAlignment="Center" Margin="0,2,0,0" />
+                                                    </StackPanel>
+                                                </TabItem.Header>
+                                                <TextBlock Padding="2" TextWrapping="Wrap" TextAlignment="Justify"  >
+                                                    Left Aligned Tabs
+                                                </TextBlock>
+                                            </TabItem>
+                                            <TabItem>
+                                                <TabItem.Header>
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <materialDesign:PackIcon HorizontalAlignment="Center" VerticalAlignment="Center" Kind="PodiumSecond" Margin="4"/>
+                                                        <TextBlock Text="SECOND" VerticalAlignment="Center" Margin="0,2,0,0" />
+                                                    </StackPanel>
+                                                </TabItem.Header>
+                                                <TextBlock Padding="2" TextWrapping="Wrap" TextAlignment="Justify"  >
+                                                     Left Aligned Tabs - Tab2
+                                                </TextBlock>
+                                            </TabItem>
+                                        </TabControl>
+                                        <TabControl materialDesign:ColorZoneAssist.Mode="Standard" 
+                                                    HorizontalContentAlignment="Right" 
+                                                    VerticalContentAlignment="Stretch" 
+                                                    Margin="0,0,0,20"
+                                                    TabStripPlacement="Top" >
+                                            <TabItem >
+                                                <TabItem.Header>
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <materialDesign:PackIcon HorizontalAlignment="Center" VerticalAlignment="Center" Margin="4" Kind="PodiumFirst"/>
+                                                        <TextBlock Text="FIRST" VerticalAlignment="Center" Margin="0,2,0,0" />
+                                                    </StackPanel>
+                                                </TabItem.Header>
+                                                <TextBlock Padding="2" TextWrapping="Wrap" TextAlignment="Justify"  >
+                                                    Right Aligned Tabs
+                                                </TextBlock>
+                                            </TabItem>
+                                            <TabItem>
+                                                <TabItem.Header>
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <materialDesign:PackIcon HorizontalAlignment="Center" VerticalAlignment="Center" Kind="PodiumSecond" Margin="4"/>
+                                                        <TextBlock Text="SECOND" VerticalAlignment="Center" Margin="0,2,0,0" />
+                                                    </StackPanel>
+                                                </TabItem.Header>
+                                                <TextBlock Padding="2" TextWrapping="Wrap" TextAlignment="Justify"  >
+                                                     Right Aligned Tabs - Tab2
+                                                </TextBlock>
+                                            </TabItem>
+                                        </TabControl>
+                                        <TabControl materialDesign:ColorZoneAssist.Mode="Standard" 
+                                                    HorizontalContentAlignment="Center" 
+                                                    VerticalContentAlignment="Stretch" 
+                                                    Margin="0,0,0,20"
+                                                    TabStripPlacement="Top" >
+                                            <TabItem >
+                                                <TabItem.Header>
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <materialDesign:PackIcon HorizontalAlignment="Center" VerticalAlignment="Center" Margin="4" Kind="PodiumFirst"/>
+                                                        <TextBlock Text="FIRST" VerticalAlignment="Center" Margin="0,2,0,0" />
+                                                    </StackPanel>
+                                                </TabItem.Header>
+                                                <TextBlock Padding="2" TextWrapping="Wrap" TextAlignment="Justify"  >
+                                                    Centered Tabs
+                                                </TextBlock>
+                                            </TabItem>
+                                            <TabItem>
+                                                <TabItem.Header>
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <materialDesign:PackIcon HorizontalAlignment="Center" VerticalAlignment="Center" Kind="PodiumSecond" Margin="4"/>
+                                                        <TextBlock Text="SECOND" VerticalAlignment="Center" Margin="0,2,0,0" />
+                                                    </StackPanel>
+                                                </TabItem.Header>
+                                                <TextBlock Padding="2" TextWrapping="Wrap" TextAlignment="Justify"  >
+                                                     Centered Tabs - Tab2
+                                                </TextBlock>
+                                            </TabItem>
+                                        </TabControl>
+
+                                    </StackPanel>
+
+                                </GroupBox>-->
+
+                            </Grid>
+                        </ScrollViewer>
+                        <!--<materialDesign:PopupBox Style="{StaticResource MaterialDesignMultiFloatingActionAccentPopupBox }" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="0,0,10,10" Grid.Row="1"/>-->
+                    </Grid>
+                </GroupBox>
+            </Grid>
+        </materialDesign:DialogHost>
+
+        <materialDesign:DialogHost Margin="15" 
+                                   Grid.Row="1" 
+                                   Grid.ColumnSpan="2" 
+                                   x:Name="NewProjectDialog"
+                                   DialogClosing="NewProjectDialog_DialogClosing">
+            <materialDesign:DialogHost.DialogContent>
+                <Grid Margin="10" >
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Text="Base Theme:" Margin="3" />
+                    <StackPanel Grid.Row="1" Margin="10,3">
+                        <RadioButton IsChecked="True" Content="Light" Style="{StaticResource MaterialDesignAccentRadioButton}" />
+                        <RadioButton x:Name="newdarkbased" Content="Dark" Style="{StaticResource MaterialDesignAccentRadioButton}" />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Grid.Row="2" >
+                        <Button Style="{StaticResource MaterialDesignFlatButton}"
+                                IsDefault="True"
+                                Margin="0 8 8 0"
+                                Command="materialDesign:DialogHost.CloseDialogCommand"
+                                CommandParameter="true">
+                            ACCEPT
+                        </Button>
+                        <Button Style="{StaticResource MaterialDesignFlatButton}"
+                                IsCancel="True"
+                                Margin="0 8 8 0"
+                                Command="materialDesign:DialogHost.CloseDialogCommand">
+                            CANCEL
+                        </Button>
+                    </StackPanel>
+                </Grid>
+            </materialDesign:DialogHost.DialogContent>
+        </materialDesign:DialogHost>
+
+        <materialDesign:DialogHost Margin="15" 
+                                   Grid.Row="1" 
+                                   Grid.ColumnSpan="2" 
+                                   x:Name="CommonDialog">
+            <materialDesign:DialogHost.DialogContent>
+                <Grid Margin="10" >
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <TextBlock x:Name="commonDialogMessage" />
+
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Grid.Row="2" >
+                        <Button Style="{StaticResource MaterialDesignFlatButton}"
+                                IsDefault="True"
+                                Margin="0 8 8 0"
+                                Command="materialDesign:DialogHost.CloseDialogCommand"
+                                CommandParameter="true">
+                            OK
+                        </Button>
+                    </StackPanel>
+                </Grid>
+            </materialDesign:DialogHost.DialogContent>
+        </materialDesign:DialogHost>
+
+    </Grid>
+</UserControl>

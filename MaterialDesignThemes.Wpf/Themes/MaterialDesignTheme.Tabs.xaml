@@ -1,0 +1,199 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:wpf="clr-namespace:MaterialDesignThemes.Wpf"
+                    xmlns:converters="clr-namespace:MaterialDesignThemes.Wpf.Converters"
+>
+
+    <Style x:Key="FocusVisual">
+        <Setter Property="Control.Template">
+            <Setter.Value>
+                <ControlTemplate>
+                    <Rectangle Margin="2" SnapsToDevicePixels="true" Stroke="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" StrokeThickness="1" StrokeDashArray="1 2"/>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+
+    <Style  TargetType="{x:Type TabControl}" x:Key="MaterialDesignTabControl">
+        <Setter Property="Background" Value="{x:Null}"/>
+        <Setter Property="Foreground" Value="{Binding RelativeSource={RelativeSource AncestorType={x:Type FrameworkElement}}, Path=(TextElement.Foreground)}"/>
+        <Setter Property="VerticalContentAlignment" Value="Stretch"/>
+        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+        <Setter Property="Padding" Value="0" />
+        <Setter Property="FontFamily" Value="{wpf:MaterialDesignFont}" />
+        <Setter Property="wpf:RippleAssist.Feedback" Value="{DynamicResource MaterialDesignFlatButtonRipple}" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type TabControl}">
+                    <DockPanel Background="{TemplateBinding Background}" 
+                               KeyboardNavigation.TabNavigation="Local">
+                        <wpf:ColorZone x:Name="PART_ColorZone" 
+                                       DockPanel.Dock="Top"
+                                       Mode="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(wpf:ColorZoneAssist.Mode)}" 
+                                       wpf:ColorZoneAssist.Background="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(wpf:ColorZoneAssist.Background)}"
+                                       wpf:ColorZoneAssist.Foreground="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(wpf:ColorZoneAssist.Foreground)}">
+                            <UniformGrid x:Name="HeaderPanel"
+                                         Rows="1"
+                                         IsItemsHost="True"
+                                         KeyboardNavigation.TabIndex="1"
+                                         HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"/>
+                        </wpf:ColorZone>
+                        <wpf:ColorZone x:Name="PART_ColorZoneSelectedContent" 
+                                       Padding="{TemplateBinding Padding}" 
+                                       Mode="Standard" 
+                                       Foreground="{DynamicResource MaterialDesignBody}"
+                                       Background="{x:Null}">
+                            <ContentPresenter x:Name="PART_SelectedContentHost"
+                                              SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" 
+                                              Focusable="False"
+                                              Margin="{TemplateBinding Padding}"
+                                              TextElement.Foreground="{Binding ElementName=PART_ColorZone, Path=Foreground}"
+                                              TextBlock.Foreground="{Binding ElementName=PART_ColorZone, Path=Foreground}"
+                                              ContentSource="SelectedContent"
+                                              ContentStringFormat="{TemplateBinding ContentStringFormat}"
+                                              ContentTemplate="{TemplateBinding ContentTemplate}"
+                                              ContentTemplateSelector="{TemplateBinding ContentTemplateSelector}">
+                            </ContentPresenter>
+                        </wpf:ColorZone>
+                    </DockPanel>
+
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="TabStripPlacement" Value="Bottom">
+                            <Setter TargetName="PART_ColorZone" Property="DockPanel.Dock" Value="Bottom"/>
+                        </Trigger>
+                        <Trigger Property="TabStripPlacement" Value="Left">
+                            <Setter TargetName="PART_ColorZone" Property="DockPanel.Dock" Value="Left"/>
+                            <Setter TargetName="HeaderPanel" Property="Rows" Value="0"/>
+                            <Setter TargetName="HeaderPanel" Property="Columns" Value="1"/>
+                        </Trigger>
+                        <Trigger Property="TabStripPlacement" Value="Right">
+                            <Setter TargetName="PART_ColorZone" Property="DockPanel.Dock" Value="Right"/>
+                            <Setter TargetName="HeaderPanel" Property="Rows" Value="0"/>
+                            <Setter TargetName="HeaderPanel" Property="Columns" Value="1"/>
+                        </Trigger>
+
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="{x:Type TabItem}" x:Key="MaterialDesignTabItem">
+        <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
+        <Setter Property="Background" Value="{DynamicResource PrimaryHueMidBrush}"/>
+        <Setter Property="BorderBrush" Value="{DynamicResource PrimaryHueMidBrush}"/>
+        <Setter Property="Padding" Value="16 12 16 12"/>
+        <Setter Property="Height" Value="48" />
+        <Setter Property="FontFamily" Value="{wpf:MaterialDesignFont}" />
+        <Setter Property="wpf:RippleAssist.Feedback" Value="{DynamicResource MaterialDesignFlatButtonRipple}" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type TabItem}">
+                    <Grid x:Name="Root" 
+                          SnapsToDevicePixels="True">
+
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="SelectionStates">
+                                <VisualState x:Name="Selected">
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetProperty="ScaleX" Storyboard.TargetName="ScaleTransform" From="0" To="1" Duration="0:0:0.3">
+                                            <DoubleAnimation.EasingFunction>
+                                                <SineEase EasingMode="EaseOut" />
+                                            </DoubleAnimation.EasingFunction>
+                                        </DoubleAnimation>
+                                        <DoubleAnimation Storyboard.TargetProperty="Opacity" Storyboard.TargetName="PART_BackgroundSelection" To="0.12" BeginTime="0:0:0.3" Duration="0" />
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="Unselected">
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetProperty="ScaleX" Storyboard.TargetName="ScaleTransform" To="0" Duration="0" />
+                                        <DoubleAnimation Storyboard.TargetProperty="Opacity" Storyboard.TargetName="PART_BackgroundSelection" To="0" Duration="0" />
+                                    </Storyboard>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+
+
+                        <wpf:ColorZone Grid.RowSpan="2" 
+                                       HorizontalAlignment="Stretch"
+                                       VerticalAlignment="Stretch"
+                                       Focusable="False"
+                                       Mode="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(wpf:ColorZoneAssist.Mode)}" 
+                                       wpf:ColorZoneAssist.Background="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(wpf:ColorZoneAssist.Background)}"
+                                       wpf:ColorZoneAssist.Foreground="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(wpf:ColorZoneAssist.Foreground)}">
+                            <wpf:Ripple Focusable="False"
+                                        Typography.Capitals="AllSmallCaps"
+                                        FontFamily="{wpf:MaterialDesignFont}"
+                                        Content="{TemplateBinding Header}" 
+                                        ContentTemplate="{TemplateBinding HeaderTemplate}"
+                                        ContentTemplateSelector="{TemplateBinding ContentTemplateSelector}"
+                                        ContentStringFormat="{TemplateBinding ContentStringFormat}"
+                                        HorizontalContentAlignment="Center"
+                                        VerticalContentAlignment="Center"
+                                        RecognizesAccessKey="True"
+                                        x:Name="contentPresenter"
+                                        Opacity=".82"
+                                        SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" 
+                                        Margin="0,0,0,0" 
+                                        TextBlock.FontWeight="Medium"
+                                        TextBlock.FontSize="15"
+                                        TextOptions.TextFormattingMode="Ideal" 
+                                        TextOptions.TextRenderingMode="Auto">
+                            </wpf:Ripple>
+                        </wpf:ColorZone>
+                        <Border x:Name="SelectionHighlightBsorder" 
+                                BorderBrush="{TemplateBinding BorderBrush}" 
+                                BorderThickness="0,0,0,2"
+                                Visibility="Hidden" RenderTransformOrigin="0.5,0.5">
+                            <Border.RenderTransform>
+                                <ScaleTransform x:Name="ScaleTransform" ScaleX="0" ScaleY="1" />
+                            </Border.RenderTransform>
+                            <Rectangle x:Name="PART_BackgroundSelection" Fill="{TemplateBinding Background}" Opacity="0.12"/>
+                        </Border>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter Property="Opacity" Value="0.23"/>
+                        </Trigger>
+                        <Trigger Property="IsSelected" Value="True">
+                            <Setter TargetName="contentPresenter" Property="Opacity" Value="1"/>
+                            <Setter TargetName="SelectionHighlightBsorder" Property="Visibility" Value="Visible" />
+                        </Trigger>
+                        <DataTrigger Binding="{Binding TabStripPlacement, RelativeSource={RelativeSource AncestorType={x:Type TabControl}}}" Value="Bottom">
+                            <Setter TargetName="SelectionHighlightBsorder" Property="BorderThickness" Value="0,2,0,0" />
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding TabStripPlacement, RelativeSource={RelativeSource AncestorType={x:Type TabControl}}}" Value="Left">
+                            <Setter TargetName="SelectionHighlightBsorder" Property="BorderThickness" Value="0,0,2,0" />
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding TabStripPlacement, RelativeSource={RelativeSource AncestorType={x:Type TabControl}}}" Value="Right">
+                            <Setter TargetName="SelectionHighlightBsorder" Property="BorderThickness" Value="2,0,0,0" />
+                        </DataTrigger>
+                        <Trigger Property="wpf:ColorZoneAssist.Mode" Value="PrimaryLight">
+                            <Setter Property="BorderBrush" Value="{DynamicResource PrimaryHueLightForegroundBrush}" />
+                            <Setter Property="Background" Value="{DynamicResource PrimaryHueLightForegroundBrush}" />
+                        </Trigger>
+                        <Trigger Property="wpf:ColorZoneAssist.Mode" Value="PrimaryMid">
+                            <Setter Property="BorderBrush" Value="{DynamicResource PrimaryHueMidForegroundBrush}" />
+                            <Setter Property="Background" Value="{DynamicResource PrimaryHueMidForegroundBrush}" />
+                        </Trigger>
+                        <Trigger Property="wpf:ColorZoneAssist.Mode" Value="PrimaryDark">
+                            <Setter Property="BorderBrush" Value="{DynamicResource PrimaryHueDarkForegroundBrush}" />
+                            <Setter Property="Background" Value="{DynamicResource PrimaryHueDarkForegroundBrush}" />
+                        </Trigger>
+                        <Trigger Property="wpf:ColorZoneAssist.Mode" Value="Accent">
+                            <Setter Property="BorderBrush" Value="{DynamicResource SecondaryHueMidForegroundBrush}" />
+                            <Setter Property="Background" Value="{DynamicResource SecondaryHueMidForegroundBrush}" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="{x:Type TabItem}" x:Key="MaterialDesignTabItemCompact" BasedOn="{StaticResource MaterialDesignTabItem}">
+        <Setter Property="Height" Value="32" />
+    </Style>
+
+
+</ResourceDictionary>

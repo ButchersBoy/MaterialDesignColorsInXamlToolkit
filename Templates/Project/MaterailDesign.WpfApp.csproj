@@ -1,0 +1,14 @@
+﻿<Project Sdk="MDIX.ProjectSDK">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>MDIX.Framework</TargetFramework>
+    <LangVersion>MDIXLangVersion</LangVersion>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MaterialDesignThemes" Version="MDIX.Version" />
+  </ItemGroup>
+
+</Project>

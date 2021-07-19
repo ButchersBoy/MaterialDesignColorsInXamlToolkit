@@ -1,0 +1,75 @@
+{
+    "$schema": "http://json.schemastore.org/template",
+    "author": "Keboo",
+    "classifications": [ "Common", "WPF", "MaterialDesign" ],
+    "identity": "MaterialDesignInXAML.DefaultProject",
+    "name": "WPF with Material Design in XAML",
+    "shortName": "mdix",
+    "tags": {
+      "language": "C#",
+      "type": "project"
+    },
+    "sourceName": "MaterailDesign.WpfApp",
+    "symbols": {
+      "framework": {
+        "type": "parameter",
+        "description": "The target framework for the project.",
+        "datatype": "choice",
+        "choices": [
+          {
+            "choice": "netcoreapp3.1",
+            "description": "Target netcoreapp3.1"
+          },
+          {
+            "choice": "net5.0-windows",
+            "description": "Target net5.0"
+          },
+          {
+            "choice": "net471",
+            "description": "Target net471"
+          },
+          {
+            "choice": "net472",
+            "description": "Target net472"
+          },
+          {
+            "choice": "net48",
+            "description": "Target net48"
+          }
+        ],
+        "replaces": "MDIX.Framework",
+        "defaultValue": "net5.0-windows"
+      },
+      "projectSdk": {
+        "type": "generated",
+        "generator": "switch",
+        "replaces": "MDIX.ProjectSDK",
+        "parameters": {
+          "evaluator": "C++",
+          "datatype": "string",
+          "cases": [
+            {
+              "condition": "(framework == 'net5.0-windows')",
+              "value": "Microsoft.NET.Sdk"
+            },
+            {
+              "condition": "(1 == 1)",
+              "value": "Microsoft.NET.Sdk.WindowsDesktop"
+            }
+          ]
+        }
+      },
+      "nuGetVersion": {
+        "type": "parameter",
+        "description": "Version of MaterialDesignThemes NuGet package to use",
+        "defaultValue": "3.2.0",
+        "replaces": "MDIX.Version"
+      },
+      "langVersion": {
+        "type": "parameter",
+        "description": "The C# language version to use (<LangVersion>).",
+        "defaultValue": "9.0",
+        "replaces": "MDIXLangVersion"
+      }
+    }
+}

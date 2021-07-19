@@ -27,7 +27,8 @@
         
         <Grid.RowDefinitions>
             <RowDefinition/>
-            <RowDefinition/>
+            <RowDefinition Height="160"/>
+            <RowDefinition Height="160"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
         <smtx:XamlDisplay
@@ -98,11 +99,55 @@
                 <TextBlock Text="My Content"/>
             </GroupBox>
         </smtx:XamlDisplay>
+        <smtx:XamlDisplay
+            UniqueKey="groupbox_paper"
+            Grid.Column="2"
+            Grid.Row="1">
+            <GroupBox
+                Header="Paper Variant"
+                Style="{DynamicResource MaterialDesignPaperGroupBox}" Margin="16">
+                <TextBlock Text="My Content"/>
+            </GroupBox>
+        </smtx:XamlDisplay>
+        <smtx:XamlDisplay
+            UniqueKey="groupbox_paper2"
+            Grid.Column="0"
+            Grid.Row="2">
+            <GroupBox
+                Header="Paper Variant"
+                Style="{DynamicResource MaterialDesignPaperGroupBox}"
+                BorderBrush="{DynamicResource PrimaryHueMidBrush}"
+                Margin="16">
+                <TextBlock Text="My Content"/>
+            </GroupBox>
+        </smtx:XamlDisplay>
+        <smtx:XamlDisplay
+            UniqueKey="groupbox_paper3"
+            Grid.Column="1"
+            Grid.Row="2">
+            <GroupBox
+                Header="Paper Variant"
+                Style="{DynamicResource MaterialDesignPaperGroupBox}" Margin="16"
+                BorderThickness="0">
+                <TextBlock Text="My Content"/>
+            </GroupBox>
+        </smtx:XamlDisplay>
+        <smtx:XamlDisplay
+            UniqueKey="groupbox_paper4"
+            Grid.Column="2"
+            Grid.Row="2">
+            <GroupBox
+                Header="Paper Variant"
+                Style="{DynamicResource MaterialDesignPaperGroupBox}" Margin="16"
+                materialDesign:ShadowAssist.ShadowDepth="Depth0">
+                <TextBlock Text="My Content"/>
+            </GroupBox>
+        </smtx:XamlDisplay>
 
         <smtx:XamlDisplay
             UniqueKey="groupbox_6"
             Grid.Column="0"
-            Grid.Row="2">
+            Grid.Row="3">
             <GroupBox
                 Header="Card Group Box"
                 Style="{DynamicResource MaterialDesignCardGroupBox}"
@@ -135,7 +180,7 @@
         <smtx:XamlDisplay
             UniqueKey="groupbox_7"
             Grid.Column="1"
-            Grid.Row="2">
+            Grid.Row="3">
             <GroupBox
                 Header="Card Group Box Accent"
                 Style="{DynamicResource MaterialDesignCardGroupBox}"
@@ -169,7 +214,7 @@
         <smtx:XamlDisplay
             UniqueKey="groupbox_8"
             Grid.Column="2"
-            Grid.Row="2">
+            Grid.Row="3">
             <GroupBox
                 Header="Card Group Box Custom"
                 Style="{DynamicResource MaterialDesignCardGroupBox}"

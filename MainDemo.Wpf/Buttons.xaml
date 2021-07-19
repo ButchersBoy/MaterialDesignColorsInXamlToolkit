@@ -53,11 +53,6 @@
             <StackPanel.Resources>
                 <system:Double x:Key="IconSize">24</system:Double>
                 <system:Double x:Key="ButtonWidth">90</system:Double>
-                <ObjectDataProvider x:Key="ColorZoneModes" MethodName="GetValues" ObjectType="{x:Type sys:Enum}">
-                    <ObjectDataProvider.MethodParameters>
-                        <x:Type TypeName="materialDesign:ColorZoneMode" />
-                    </ObjectDataProvider.MethodParameters>
-                </ObjectDataProvider>
             </StackPanel.Resources>
 
             <StackPanel Margin="0 24 0 0">

@@ -2,16 +2,16 @@
 using System.ComponentModel;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 using MaterialDesignThemes.UITests.Samples.DialogHost;
-using MaterialDesignThemes.UITests.WPF.TimePicker;
 using XamlTest;
 using Xunit;
 using Xunit.Abstractions;
 
-namespace MaterialDesignThemes.UITests.WPF.DialogHost
+namespace MaterialDesignThemes.UITests.WPF.DialogHosts
 {
     public class DialogHostTests : TestBase
-    {
+    { 
         public DialogHostTests(ITestOutputHelper output) : base(output)
         {
         }
@@ -22,28 +22,28 @@ namespace MaterialDesignThemes.UITests.WPF.DialogHost
             await using var recorder = new TestRecorder(App);
 
             IVisualElement dialogHost = await LoadUserControl<WithCounter>();
-            IVisualElement overlay = await dialogHost.GetElement("PART_ContentCoverGrid");
+            var overlay = await dialogHost.GetElement<Grid>("PART_ContentCoverGrid");
 
-            IVisualElement resultTextBlock = await dialogHost.GetElement("ResultTextBlock");
+            var resultTextBlock = await dialogHost.GetElement<TextBlock>("ResultTextBlock");
             await Wait.For(async () => await resultTextBlock.GetText() == "Clicks: 0");
 
-            IVisualElement testOverlayButton = await dialogHost.GetElement("TestOverlayButton");
-            await testOverlayButton.Click();
+            var testOverlayButton = await dialogHost.GetElement<Button>("TestOverlayButton");
+            await testOverlayButton.LeftClick();
             await Wait.For(async () => await resultTextBlock.GetText() == "Clicks: 1");
 
-            IVisualElement showDialogButton = await dialogHost.GetElement("ShowDialogButton");
-            await showDialogButton.Click();
+            var showDialogButton = await dialogHost.GetElement<Button>("ShowDialogButton");
+            await showDialogButton.LeftClick();
 
-            IVisualElement closeDialogButton = await dialogHost.GetElement("CloseDialogButton");
+            var closeDialogButton = await dialogHost.GetElement<Button>("CloseDialogButton");
             await Wait.For(async () => await closeDialogButton.GetIsVisible() == true);
 
-            await testOverlayButton.Click();
+            await testOverlayButton.LeftClick();
             await Wait.For(async () => await resultTextBlock.GetText() == "Clicks: 1");
-            await closeDialogButton.Click();
+            await closeDialogButton.LeftClick();
 
             var retry = new Retry(5, TimeSpan.FromSeconds(5));
             await Wait.For(async () => await overlay.GetVisibility() != Visibility.Visible, retry);
-            await testOverlayButton.Click();
+            await testOverlayButton.LeftClick();
             await Wait.For(async () => Assert.Equal("Clicks: 2", await resultTextBlock.GetText()), retry);
         }
 
@@ -54,14 +54,14 @@ namespace MaterialDesignThemes.UITests.WPF.DialogHost
             await using var recorder = new TestRecorder(App);
 
             IVisualElement dialogHost = await LoadUserControl<ClosingEventCounter>();
-            IVisualElement showButton = await dialogHost.GetElement("ShowDialogButton");
-            IVisualElement closeButton = await dialogHost.GetElement("CloseButton");
-            IVisualElement resultTextBlock = await dialogHost.GetElement("ResultTextBlock");
+            var showButton = await dialogHost.GetElement<Button>("ShowDialogButton");
+            var closeButton = await dialogHost.GetElement<Button>("CloseButton");
+            var resultTextBlock = await dialogHost.GetElement<TextBlock>("ResultTextBlock");
 
-            await showButton.Click();
+            await showButton.LeftClick();
             await Wait.For(async () => await closeButton.GetIsVisible());
             await Task.Delay(300);
-            await closeButton.Click();
+            await closeButton.LeftClick();
 
             await Wait.For(async () => Assert.Equal("1", await resultTextBlock.GetText()));
             recorder.Success();

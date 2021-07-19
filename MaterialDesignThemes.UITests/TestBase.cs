@@ -2,13 +2,14 @@
 using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Media;
-using MaterialDesignColors;
 using MaterialDesignThemes.Wpf;
 using XamlTest;
 using Xunit;
 using Xunit.Abstractions;
 
 [assembly: CollectionBehavior(DisableTestParallelization = true)]
+[assembly: GenerateHelpers(typeof(SmartHint))]
+[assembly: GenerateHelpers(typeof(TimePicker))]
 
 namespace MaterialDesignThemes.UITests
 {
@@ -31,10 +32,10 @@ namespace MaterialDesignThemes.UITests
             return resource.GetAs<Color?>() ?? throw new Exception($"Failed to convert resource '{name}' to color");
         }
 
-        protected async Task<IVisualElement> LoadXaml(string xaml)
+        protected async Task<IVisualElement<T>> LoadXaml<T>(string xaml)
         {
             await App.InitialzeWithMaterialDesign();
-            return await App.CreateWindowWith(xaml);
+            return await App.CreateWindowWith<T>(xaml);
         }
 
         protected async Task<IVisualElement> LoadUserControl<TControl>()

@@ -6,7 +6,7 @@ using Xunit;
 using Xunit.Abstractions;
 using Controls = System.Windows.Controls;
 
-namespace MaterialDesignThemes.UITests.WPF.PasswordBox
+namespace MaterialDesignThemes.UITests.WPF.PasswordBoxes
 {
     public class PasswordBoxTests: TestBase
     {
@@ -21,16 +21,16 @@ namespace MaterialDesignThemes.UITests.WPF.PasswordBox
             await using var recorder = new TestRecorder(App);
 
             //Arrange
-            var stackPanel = await LoadXaml(@"
+            var stackPanel = await LoadXaml<StackPanel>(@"
 <StackPanel>
     <PasswordBox materialDesign:TextFieldAssist.HasClearButton=""True""/>
 </StackPanel>");
-            var passwordBox = await stackPanel.GetElement("/PasswordBox");
+            var passwordBox = await stackPanel.GetElement<PasswordBox>("/PasswordBox");
 
             var initialRect = await passwordBox.GetCoordinates();
 
             //Act
-            await passwordBox.SetProperty(nameof(Controls.PasswordBox.Password), "x");
+            await passwordBox.SetPassword("x");
 
             //Assert
             var rect = await passwordBox.GetCoordinates();
@@ -45,14 +45,14 @@ namespace MaterialDesignThemes.UITests.WPF.PasswordBox
         {
             await using var recorder = new TestRecorder(App);
 
-            var stackPanel = await LoadXaml(@"
+            var stackPanel = await LoadXaml<StackPanel>(@"
 <StackPanel>
     <PasswordBox materialDesign:HintAssist.HelperTextFontSize=""20""/>
 </StackPanel>");
-            var timePicker = await stackPanel.GetElement("/PasswordBox");
-            IVisualElement helpTextBlock = await timePicker.GetElement("/Grid/Canvas/TextBlock");
+            var passwordBox = await stackPanel.GetElement<PasswordBox>("/PasswordBox");
+            var helpTextBlock = await passwordBox.GetElement<TextBlock>("/Grid/Canvas/TextBlock");
 
-            double fontSize = await helpTextBlock.GetProperty<double>(TextBlock.FontSizeProperty.Name);
+            double fontSize = await helpTextBlock.GetFontSize();
 
             Assert.Equal(20, fontSize);
             recorder.Success();

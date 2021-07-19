@@ -620,6 +620,7 @@
                             <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="FontFamily" />
                             <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="FontSize" />
                             <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="(wpf:HintAssist.FloatingScale)" />
+                            <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="(wpf:HintAssist.FloatingOffset)" />
                             <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="ActualHeight" />
                         </MultiBinding>
                     </Setter.Value>
@@ -659,6 +660,7 @@
                             <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="FontFamily" />
                             <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="FontSize" />
                             <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="(wpf:HintAssist.FloatingScale)" />
+                            <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="(wpf:HintAssist.FloatingOffset)" />
                         </MultiBinding>
                     </Setter.Value>
                 </Setter>
@@ -668,6 +670,7 @@
                             <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="FontFamily" />
                             <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="FontSize" />
                             <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="(wpf:HintAssist.FloatingScale)" />
+                            <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="(wpf:HintAssist.FloatingOffset)" />
                         </MultiBinding>
                     </Setter.Value>
                 </Setter>
@@ -1012,7 +1015,6 @@
     <Style x:Key="MaterialDesignFilledComboBox" TargetType="{x:Type ComboBox}" BasedOn="{StaticResource MaterialDesignFloatingHintComboBox}">
         <Setter Property="wpf:TextFieldAssist.HasFilledTextField" Value="True" />
         <Setter Property="wpf:TextFieldAssist.TextFieldCornerRadius" Value="4,4,0,0" />
-        <Setter Property="wpf:HintAssist.FloatingOffset" Value="0,-8" />
         <Setter Property="wpf:ComboBoxAssist.ShowSelectedItem" Value="False" />
         <Setter Property="VerticalContentAlignment" Value="Stretch" />
         <Setter Property="VerticalAlignment" Value="Stretch" />

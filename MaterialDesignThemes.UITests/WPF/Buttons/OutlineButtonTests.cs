@@ -5,9 +5,8 @@ using System.Windows.Media;
 using XamlTest;
 using Xunit;
 using Xunit.Abstractions;
-using WpfButton=System.Windows.Controls.Button;
 
-namespace MaterialDesignThemes.UITests.WPF.Button
+namespace MaterialDesignThemes.UITests.WPF.Buttons
 {
     public class OutlineButtonTests : TestBase
     {
@@ -21,14 +20,14 @@ namespace MaterialDesignThemes.UITests.WPF.Button
             await using var recorder = new TestRecorder(App);
 
             //Arrange
-            IVisualElement button = await LoadXaml(
+            IVisualElement<Button> button = await LoadXaml<Button>(
                 @"<Button Content=""Button"" Style=""{StaticResource MaterialDesignOutlinedButton}""/>");
             Color midColor = await GetThemeColor("PrimaryHueMidBrush");
-            IVisualElement? internalBorder = await button.GetElement("border");
+            IVisualElement<Border> internalBorder = await button.GetElement<Border>("border");
 
             //Act
-            Color? borderColor = await button.GetProperty<Color?>(nameof(WpfButton.BorderBrush));
-            Color? internalBorderColor = await internalBorder.GetProperty<Color?>(nameof(Border.BorderBrush));
+            Color? borderColor = await button.GetBorderBrushColor();
+            Color? internalBorderColor = await internalBorder.GetBorderBrushColor();
 
             //Assert
             Assert.Equal(midColor, borderColor);
@@ -43,22 +42,22 @@ namespace MaterialDesignThemes.UITests.WPF.Button
             await using var recorder = new TestRecorder(App);
 
             //Arrange
-            IVisualElement button = await LoadXaml(
+            var button = await LoadXaml<Button>(
                 @"<Button Content=""Button""
                           Style=""{StaticResource MaterialDesignOutlinedButton}""
                           BorderThickness=""5""
                           BorderBrush=""Red""
                     />");
             Color midColor = await GetThemeColor("PrimaryHueMidBrush");
-            IVisualElement? internalBorder = await button.GetElement("border");
+            IVisualElement<Border> internalBorder = await button.GetElement<Border>("border");
 
             //Act
-            Thickness borderThickness = await internalBorder.GetProperty<Thickness>(nameof(Border.BorderThickness));
-            SolidColorBrush borderBrush = await internalBorder.GetProperty<SolidColorBrush>(nameof(Border.BorderBrush));
+            Thickness borderThickness = await internalBorder.GetBorderThickness();
+            SolidColorBrush? borderBrush = (await internalBorder.GetBorderBrush()) as SolidColorBrush;
 
             //Assert
             Assert.Equal(new Thickness(5), borderThickness);
-            Assert.Equal(Colors.Red, borderBrush.Color);
+            Assert.Equal(Colors.Red, borderBrush?.Color);
 
             recorder.Success();
         }
@@ -69,19 +68,19 @@ namespace MaterialDesignThemes.UITests.WPF.Button
             await using var recorder = new TestRecorder(App);
 
             //Arrange
-            IVisualElement button = await LoadXaml(
+            IVisualElement<Button> button = await LoadXaml<Button>(
                 @"<Button Content=""Button"" Style=""{StaticResource MaterialDesignOutlinedButton}""/>");
             Color midColor = await GetThemeColor("PrimaryHueMidBrush");
-            IVisualElement? internalBorder = await button.GetElement("border");
+            IVisualElement<Border> internalBorder = await button.GetElement<Border>("border");
 
             //Act
-            await button.MoveCursorToElement(Position.Center);
+            await button.MoveCursorTo(Position.Center);
             await Wait.For(async () =>
             {
-                SolidColorBrush internalBorderBackground = await internalBorder.GetProperty<SolidColorBrush>(nameof(Border.Background));
+                SolidColorBrush? internalBorderBackground = (await internalBorder.GetBackground()) as SolidColorBrush;
 
                 //Assert
-                Assert.Equal(midColor, internalBorderBackground.Color);
+                Assert.Equal(midColor, internalBorderBackground?.Color);
             });
             
             recorder.Success();

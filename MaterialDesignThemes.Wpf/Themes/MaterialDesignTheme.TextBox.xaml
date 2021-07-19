@@ -286,6 +286,7 @@
                                         <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="FontFamily" />
                                         <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="FontSize" />
                                         <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="(wpf:HintAssist.FloatingScale)" />
+                                        <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="(wpf:HintAssist.FloatingOffset)" />
                                     </MultiBinding>
                                 </Setter.Value>
                             </Setter>
@@ -295,6 +296,7 @@
                                         <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="FontFamily" />
                                         <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="FontSize" />
                                         <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="(wpf:HintAssist.FloatingScale)" />
+                                        <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="(wpf:HintAssist.FloatingOffset)" />
                                     </MultiBinding>
                                 </Setter.Value>
                             </Setter>
@@ -321,6 +323,7 @@
                                         <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="FontFamily" />
                                         <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="FontSize" />
                                         <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="(wpf:HintAssist.FloatingScale)" />
+                                        <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="(wpf:HintAssist.FloatingOffset)" />
                                         <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Padding" />
                                     </MultiBinding>
                                 </Setter.Value>

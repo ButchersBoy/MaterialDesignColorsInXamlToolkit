@@ -1,4 +1,6 @@
 using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
 using XamlTest;
 using Xunit;
 using Xunit.Abstractions;
@@ -16,7 +18,7 @@ namespace MaterialDesignThemes.UITests.WPF
         {
             await using var recorder = new TestRecorder(App);
 
-            var stackPanel = await LoadXaml(@"
+            var stackPanel = await LoadXaml<StackPanel>(@"
 <StackPanel>
     <TextBox />
     <PasswordBox />
@@ -39,7 +41,7 @@ namespace MaterialDesignThemes.UITests.WPF
         {
             await using var recorder = new TestRecorder(App);
 
-            var stackPanel = await LoadXaml(@"
+            var stackPanel = await LoadXaml<StackPanel>(@"
 <StackPanel>
     <TextBox materialDesign:HintAssist.IsFloating=""True"" />
     <PasswordBox materialDesign:HintAssist.IsFloating=""True"" />
@@ -63,7 +65,7 @@ namespace MaterialDesignThemes.UITests.WPF
         {
             await using var recorder = new TestRecorder(App);
 
-            var stackPanel = await LoadXaml(@"
+            var stackPanel = await LoadXaml<StackPanel>(@"
 <StackPanel>
     <TextBox Style=""{StaticResource MaterialDesignFilledTextBox}"" />
     <PasswordBox Style=""{StaticResource MaterialDesignFilledPasswordBox}"" />
@@ -87,7 +89,7 @@ namespace MaterialDesignThemes.UITests.WPF
         {
             await using var recorder = new TestRecorder(App);
 
-            var stackPanel = await LoadXaml(@"
+            var stackPanel = await LoadXaml<StackPanel>(@"
 <StackPanel>
     <TextBox Style=""{StaticResource MaterialDesignOutlinedTextBox}"" />
     <PasswordBox Style=""{StaticResource MaterialDesignOutlinedPasswordBox}"" />
@@ -106,7 +108,7 @@ namespace MaterialDesignThemes.UITests.WPF
 
         private static async Task<double> GetHeight(IVisualElement container, string type)
         {
-            var element = await container.GetElement("/" + type);
+            var element = await container.GetElement<FrameworkElement>("/" + type);
             var height = await element.GetActualHeight();
             Assert.True(height > 0);
             return height;

@@ -1,5 +1,4 @@
 using System;
-using System.Diagnostics;
 using System.Globalization;
 using System.Windows;
 using System.Windows.Data;
@@ -18,15 +17,18 @@ namespace MaterialDesignThemes.Wpf.Converters
                 ? new Thickness(Constants.TextBoxInnerButtonSpacing, padding.Top, padding.Right, padding.Bottom)
                 : Binding.DoNothing;
 
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) => throw new NotSupportedException();
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+            => throw new NotSupportedException();
         
         /// <summary>
         /// Adds the width of the inner picker button to the right of inner padding 
         /// </summary>
         public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
         {
-            if (!(values[0] is Thickness padding))
+            if (values[0] is not Thickness padding)
+            {
                 return Binding.DoNothing;
+            }
 
             switch (values.Length)
             {
@@ -40,13 +42,16 @@ namespace MaterialDesignThemes.Wpf.Converters
 
                 // calculate padding for picker-button (considering floating hint offset)
                 case 4:
-                    var offsetResult = _offsetCalculation.Convert(new[] { values[1], values[2], values[3] }, typeof(Thickness), null, culture);
+                    var offsetResult = _offsetCalculation.Convert(new[] { values[1], values[2], values[3], null }, typeof(Thickness), null, culture);
                     if (offsetResult is Thickness offset)
+                    {
                         return new Thickness(
                             padding.Left + offset.Left,
                             padding.Top + offset.Top,
                             padding.Right + offset.Right,
                             padding.Bottom + offset.Bottom);
+                    }
+
                     break;
             }
             return Binding.DoNothing;

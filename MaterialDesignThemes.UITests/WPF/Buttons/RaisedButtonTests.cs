@@ -1,10 +1,11 @@
 ﻿using System.Threading.Tasks;
+using System.Windows.Controls;
 using System.Windows.Media;
 using XamlTest;
 using Xunit;
 using Xunit.Abstractions;
 
-namespace MaterialDesignThemes.UITests.WPF.Button
+namespace MaterialDesignThemes.UITests.WPF.Buttons
 {
     public class RaisedButtonTests : TestBase
     {
@@ -18,7 +19,7 @@ namespace MaterialDesignThemes.UITests.WPF.Button
             await using var recorder = new TestRecorder(App);
 
             //Arrange
-            IVisualElement button = await LoadXaml(@"<Button Content=""Button"" />");
+            IVisualElement<Button> button = await LoadXaml<Button>(@"<Button Content=""Button"" />");
             Color midColor = await GetThemeColor("PrimaryHueMidBrush");
 
             //Act

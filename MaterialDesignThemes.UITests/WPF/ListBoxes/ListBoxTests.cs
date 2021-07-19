@@ -1,13 +1,14 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Threading.Tasks;
+using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Media;
 using XamlTest;
 using Xunit;
 using Xunit.Abstractions;
 
-namespace MaterialDesignThemes.UITests.WPF.ListBox
+namespace MaterialDesignThemes.UITests.WPF.ListBoxes
 {
     public class ListBoxTests : TestBase
     {
@@ -20,7 +21,7 @@ namespace MaterialDesignThemes.UITests.WPF.ListBox
         {
             await using var recorder = new TestRecorder(App);
 
-            IVisualElement listBox = await LoadXaml(@"
+            var listBox = await LoadXaml<ListBox>(@"
 <ListBox MinWidth=""200"">
     <ListBoxItem Content=""Item1"" />
     <ListBoxItem Content=""Item2"" />
@@ -29,14 +30,14 @@ namespace MaterialDesignThemes.UITests.WPF.ListBox
 </ListBox>
 ");
 
-            IVisualElement listBoxItem = await listBox.GetElement("/ListBoxItem[2]");
-            Assert.Equal("Item3", await listBoxItem.GetProperty<string>("Content"));
-            IVisualElement mouseOverBorder = await listBoxItem.GetElement("MouseOverBorder");
+            var listBoxItem = await listBox.GetElement<ListBoxItem>("/ListBoxItem[2]");
+            Assert.Equal("Item3", await listBoxItem.GetContent());
+            var mouseOverBorder = await listBoxItem.GetElement<Border>("MouseOverBorder");
 
-            await listBox.MoveCursorToElement(Position.TopLeft);
+            await listBox.MoveCursorTo(Position.TopLeft);
             await Wait.For(async () => Assert.Equal(0.0, await mouseOverBorder.GetOpacity()));
 
-            await mouseOverBorder.MoveCursorToElement();
+            await mouseOverBorder.MoveCursorTo();
             await Wait.For(async () =>
             {
                 double opacity = await mouseOverBorder.GetOpacity();
@@ -45,10 +46,10 @@ namespace MaterialDesignThemes.UITests.WPF.ListBox
             });
 
             Color effectiveBackground = await mouseOverBorder.GetEffectiveBackground();
-            Color foreground = await listBoxItem.GetForegroundColor();
-            foreground = foreground.FlattenOnto(effectiveBackground);
+            Color? foreground = await listBoxItem.GetForegroundColor();
+            foreground = foreground?.FlattenOnto(effectiveBackground);
 
-            float contrastRatio = foreground.ContrastRatio(effectiveBackground);
+            float? contrastRatio = foreground?.ContrastRatio(effectiveBackground);
             Assert.True(contrastRatio >= MaterialDesignSpec.MinimumContrastSmallText);
 
             recorder.Success();
@@ -72,7 +73,7 @@ namespace MaterialDesignThemes.UITests.WPF.ListBox
         {
             await using var recorder = new TestRecorder(App);
 
-            IVisualElement listBox = await LoadXaml($@"
+            var listBox = await LoadXaml<ListBox>($@"
 <ListBox x:Name=""ChipsListBox"" Style=""{{StaticResource {listBoxStyle}}}"">
     <ListBoxItem>Mercury</ListBoxItem>
     <ListBoxItem>Venus</ListBoxItem>
@@ -80,10 +81,10 @@ namespace MaterialDesignThemes.UITests.WPF.ListBox
     <ListBoxItem>Pluto</ListBoxItem>
 </ListBox>
 ");
-            IVisualElement earth = await listBox.GetElement("/ListBoxItem[2]");
-            await earth.Click();
+            var earth = await listBox.GetElement<ListBoxItem>("/ListBoxItem[2]");
+            await earth.LeftClick();
 
-            await Wait.For(async () => Assert.Equal(2, await listBox.GetProperty<int>(nameof(Selector.SelectedIndex))));
+            await Wait.For(async () => Assert.Equal(2, await listBox.GetSelectedIndex()));
 
             recorder.Success();
         }
@@ -107,25 +108,25 @@ ScrollViewer.VerticalScrollBarVisibility=""Visible"">
             }
             xaml += "</ListBox>";
 
-            IVisualElement listBox = await LoadXaml(xaml);
-            IVisualElement verticalScrollBar = await listBox.GetElement("PART_VerticalScrollBar");
-            IVisualElement horizontalScrollBar = await listBox.GetElement("PART_HorizontalScrollBar");
+            var listBox = await LoadXaml<ListBox>(xaml);
+            var verticalScrollBar = await listBox.GetElement<ScrollBar>("PART_VerticalScrollBar");
+            var horizontalScrollBar = await listBox.GetElement<ScrollBar>("PART_HorizontalScrollBar");
 
             Assert.Equal(17, await verticalScrollBar.GetActualWidth());
-            var verticalThumb = await verticalScrollBar.GetElement("/Thumb~border");
+            var verticalThumb = await verticalScrollBar.GetElement<Border>("/Thumb~border");
             Assert.Equal(10, await verticalThumb.GetActualWidth());
-            var upButton = await verticalScrollBar.GetElement("PART_LineUpButton");
+            var upButton = await verticalScrollBar.GetElement<RepeatButton>("PART_LineUpButton");
             Assert.False(await upButton.GetIsVisible());
-            var downButton = await verticalScrollBar.GetElement("PART_LineDownButton");
+            var downButton = await verticalScrollBar.GetElement<RepeatButton>("PART_LineDownButton");
             Assert.False(await downButton.GetIsVisible());
 
             Assert.Equal(17, await horizontalScrollBar.GetActualHeight());
-            var horizontalThumb = await horizontalScrollBar.GetElement("/Thumb~border");
+            var horizontalThumb = await horizontalScrollBar.GetElement<Border>("/Thumb~border");
             Assert.Equal(10, await horizontalThumb.GetActualHeight());
-            var leftButton = await horizontalScrollBar.GetElement("PART_LineLeftButton");
-            Assert.False(await upButton.GetIsVisible());
-            var rightButton = await horizontalScrollBar.GetElement("PART_LineRightButton");
-            Assert.False(await downButton.GetIsVisible());
+            var leftButton = await horizontalScrollBar.GetElement<RepeatButton>("PART_LineLeftButton");
+            Assert.False(await leftButton.GetIsVisible());
+            var rightButton = await horizontalScrollBar.GetElement<RepeatButton>("PART_LineRightButton");
+            Assert.False(await rightButton.GetIsVisible());
 
             recorder.Success();
         }

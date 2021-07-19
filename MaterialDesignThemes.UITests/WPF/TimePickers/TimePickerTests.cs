@@ -3,11 +3,12 @@ using System.ComponentModel;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Input;
+using MaterialDesignThemes.Wpf;
 using XamlTest;
 using Xunit;
 using Xunit.Abstractions;
 
-namespace MaterialDesignThemes.UITests.WPF.TimePicker
+namespace MaterialDesignThemes.UITests.WPF.TimePickers
 {
     public class TimePickerTests : TestBase
     {
@@ -23,12 +24,12 @@ namespace MaterialDesignThemes.UITests.WPF.TimePicker
         {
             await using var recorder = new TestRecorder(App);
 
-            var stackPanel = await LoadXaml(@"
+            var stackPanel = await LoadXaml<StackPanel>(@"
 <StackPanel>
     <materialDesign:TimePicker Language=""en-US"" />
 </StackPanel>");
-            var timePicker = await stackPanel.GetElement("/TimePicker");
-            var timePickerTextBox = await timePicker.GetElement("/TimePickerTextBox");
+            var timePicker = await stackPanel.GetElement<TimePicker>("/TimePicker");
+            var timePickerTextBox = await timePicker.GetElement<TimePickerTextBox>("/TimePickerTextBox");
 
             await timePicker.SetSelectedTime(new DateTime(year, month, day));
             await timePickerTextBox.MoveKeyboardFocus();
@@ -47,14 +48,14 @@ namespace MaterialDesignThemes.UITests.WPF.TimePicker
         {
             await using var recorder = new TestRecorder(App);
 
-            var stackPanel = await LoadXaml(@"
+            var stackPanel = await LoadXaml<StackPanel>(@"
 <StackPanel>
     <materialDesign:TimePicker Language=""en-US"" />
     <TextBox />
 </StackPanel>");
-            var timePicker = await stackPanel.GetElement("/TimePicker");
-            var timePickerTextBox = await timePicker.GetElement("/TimePickerTextBox");
-            var textBox = await stackPanel.GetElement("/TextBox");
+            var timePicker = await stackPanel.GetElement<TimePicker>("/TimePicker");
+            var timePickerTextBox = await timePicker.GetElement<TimePickerTextBox>("/TimePickerTextBox");
+            var textBox = await stackPanel.GetElement<TextBox>("/TextBox");
 
             await timePicker.SetSelectedTime(new DateTime(year, month, day));
             await timePickerTextBox.MoveKeyboardFocus();
@@ -74,11 +75,11 @@ namespace MaterialDesignThemes.UITests.WPF.TimePicker
         {
             await using var recorder = new TestRecorder(App);
 
-            var stackPanel = await LoadXaml(@"
+            var stackPanel = await LoadXaml<StackPanel>(@"
 <StackPanel>
     <materialDesign:TimePicker/>
 </StackPanel>");
-            var timePicker = await stackPanel.GetElement("/TimePicker");
+            var timePicker = await stackPanel.GetElement<TimePicker>("/TimePicker");
 
             await timePicker.SetSelectedTime(new DateTime(year, month, day));
             await timePicker.PickClock(1, 10);
@@ -94,12 +95,12 @@ namespace MaterialDesignThemes.UITests.WPF.TimePicker
         {
             await using var recorder = new TestRecorder(App);
 
-            var stackPanel = await LoadXaml(@"
+            var stackPanel = await LoadXaml<StackPanel>(@"
 <StackPanel>
     <materialDesign:TimePicker Language=""en-US"" />
 </StackPanel>");
-            var timePicker = await stackPanel.GetElement("/TimePicker");
-            var timePickerTextBox = await timePicker.GetElement("/TimePickerTextBox");
+            var timePicker = await stackPanel.GetElement<TimePicker>("/TimePicker");
+            var timePickerTextBox = await timePicker.GetElement<TimePickerTextBox>("/TimePickerTextBox");
 
             var today = DateTime.Today;
             await timePickerTextBox.MoveKeyboardFocus();
@@ -116,14 +117,14 @@ namespace MaterialDesignThemes.UITests.WPF.TimePicker
         {
             await using var recorder = new TestRecorder(App);
 
-            var stackPanel = await LoadXaml(@"
+            var stackPanel = await LoadXaml<StackPanel>(@"
 <StackPanel>
     <materialDesign:TimePicker Language=""en-US"" />
     <TextBox />
 </StackPanel>");
-            var timePicker = await stackPanel.GetElement("/TimePicker");
-            var timePickerTextBox = await timePicker.GetElement("/TimePickerTextBox");
-            var textBox = await stackPanel.GetElement("/TextBox");
+            var timePicker = await stackPanel.GetElement<TimePicker>("/TimePicker");
+            var timePickerTextBox = await timePicker.GetElement<TimePickerTextBox>("/TimePickerTextBox");
+            var textBox = await stackPanel.GetElement<TextBox>("/TextBox");
 
             var today = DateTime.Today;
             await timePickerTextBox.MoveKeyboardFocus();
@@ -141,11 +142,11 @@ namespace MaterialDesignThemes.UITests.WPF.TimePicker
         {
             await using var recorder = new TestRecorder(App);
 
-            var stackPanel = await LoadXaml(@"
+            var stackPanel = await LoadXaml<StackPanel>(@"
 <StackPanel>
     <materialDesign:TimePicker/>
 </StackPanel>");
-            var timePicker = await stackPanel.GetElement("/TimePicker");
+            var timePicker = await stackPanel.GetElement<TimePicker>("/TimePicker");
 
             var today = DateTime.Today;
             await timePicker.PickClock(1, 23);
@@ -175,17 +176,17 @@ namespace MaterialDesignThemes.UITests.WPF.TimePicker
         {
             await using var recorder = new TestRecorder(App);
 
-            var stackPanel = await LoadXaml(@"
+            var stackPanel = await LoadXaml<StackPanel>(@"
 <StackPanel>
     <materialDesign:TimePicker/>
     <TextBox/>
 </StackPanel>");
-            var timePicker = await stackPanel.GetElement("/TimePicker");
-            var timePickerTextBox = await timePicker.GetElement("/TimePickerTextBox");
-            var textBox = await stackPanel.GetElement("/TextBox");
+            var timePicker = await stackPanel.GetElement<TimePicker>("/TimePicker");
+            var timePickerTextBox = await timePicker.GetElement<TimePickerTextBox>("/TimePickerTextBox");
+            var textBox = await stackPanel.GetElement<TextBox>("/TextBox");
 
             await timePickerTextBox.MoveKeyboardFocus();
-            await timePickerTextBox.SendInput($"{text}");
+            await timePickerTextBox.SendKeyboardInput($"{text}");
             await textBox.MoveKeyboardFocus();
 
             var actual = await timePickerTextBox.GetText();
@@ -202,18 +203,18 @@ namespace MaterialDesignThemes.UITests.WPF.TimePicker
         {
             await using var recorder = new TestRecorder(App);
 
-            var stackPanel = await LoadXaml(@"
+            var stackPanel = await LoadXaml<StackPanel>(@"
 <StackPanel>
     <materialDesign:TimePicker/>
     <TextBox/>
 </StackPanel>");
-            var timePicker = await stackPanel.GetElement("/TimePicker");
-            var timePickerTextBox = await timePicker.GetElement("/TimePickerTextBox");
-            var textBox = await stackPanel.GetElement("/TextBox");
+            var timePicker = await stackPanel.GetElement<TimePicker>("/TimePicker");
+            var timePickerTextBox = await timePicker.GetElement<TimePickerTextBox>("/TimePickerTextBox");
+            var textBox = await stackPanel.GetElement<TextBox>("/TextBox");
 
             await timePicker.SetSelectedTime(new DateTime (2020, 8, 10, 1, 2, 0)); 
             await timePickerTextBox.MoveKeyboardFocus();
-            await timePickerTextBox.SendInput($"{text}");
+            await timePickerTextBox.SendKeyboardInput($"{text}");
             await textBox.MoveKeyboardFocus();
 
             var actual = await timePickerTextBox.GetText();
@@ -230,16 +231,16 @@ namespace MaterialDesignThemes.UITests.WPF.TimePicker
         {
             await using var recorder = new TestRecorder(App);
 
-            var stackPanel = await LoadXaml(@"
+            var stackPanel = await LoadXaml<StackPanel>(@"
 <StackPanel>
     <materialDesign:TimePicker/>
 </StackPanel>");
-            var timePicker = await stackPanel.GetElement("/TimePicker");
-            var timePickerTextBox = await timePicker.GetElement("/TimePickerTextBox");
+            var timePicker = await stackPanel.GetElement<TimePicker>("/TimePicker");
+            var timePickerTextBox = await timePicker.GetElement<TimePickerTextBox>("/TimePickerTextBox");
 
             await timePicker.SetSelectedTime(new DateTime (2020, 8, 10, 1, 2, 0)); 
             await timePickerTextBox.MoveKeyboardFocus();
-            await timePickerTextBox.SendInput($"{text}{Key.Enter}");
+            await timePickerTextBox.SendKeyboardInput($"{text}{Key.Enter}");
 
             var actual = await timePickerTextBox.GetText();
             Assert.Equal("1:02 AM", actual);
@@ -255,16 +256,16 @@ namespace MaterialDesignThemes.UITests.WPF.TimePicker
         {
             await using var recorder = new TestRecorder(App);
 
-            var stackPanel = await LoadXaml(@"
+            var stackPanel = await LoadXaml<StackPanel>(@"
 <StackPanel>
     <materialDesign:TimePicker/>
 </StackPanel>");
-            var timePicker = await stackPanel.GetElement("/TimePicker");
-            var timePickerTextBox = await timePicker.GetElement("/TimePickerTextBox");
+            var timePicker = await stackPanel.GetElement<TimePicker>("/TimePicker");
+            var timePickerTextBox = await timePicker.GetElement<TimePickerTextBox>("/TimePickerTextBox");
 
             await timePicker.SetSelectedTime(new DateTime (2020, 8, 10, 1, 3, 0)); 
             await timePickerTextBox.MoveKeyboardFocus();
-            await timePickerTextBox.SendInput($"{text}{Key.Enter}");
+            await timePickerTextBox.SendKeyboardInput($"{text}{Key.Enter}");
 
             var actual = await timePickerTextBox.GetText();
             Assert.Equal("1:02 AM", actual);
@@ -280,16 +281,16 @@ namespace MaterialDesignThemes.UITests.WPF.TimePicker
         {
             await using var recorder = new TestRecorder(App);
 
-            var stackPanel = await LoadXaml(@"
+            var stackPanel = await LoadXaml<StackPanel>(@"
 <StackPanel>
     <materialDesign:TimePicker/>
 </StackPanel>");
-            var timePicker = await stackPanel.GetElement("/TimePicker");
-            var timePickerTextBox = await timePicker.GetElement("/TimePickerTextBox");
+            var timePicker = await stackPanel.GetElement<TimePicker>("/TimePicker");
+            var timePickerTextBox = await timePicker.GetElement<TimePickerTextBox>("/TimePickerTextBox");
 
             await timePicker.SetSelectedTime(new DateTime(2020, 8, 10, 1, 2, 0));
             await timePickerTextBox.MoveKeyboardFocus();
-            await timePickerTextBox.SendInput($"{text}");
+            await timePickerTextBox.SendKeyboardInput($"{text}");
             await timePicker.PickClock(1, 3);
 
             var actual = await timePickerTextBox.GetText();
@@ -306,16 +307,16 @@ namespace MaterialDesignThemes.UITests.WPF.TimePicker
         {
             await using var recorder = new TestRecorder(App);
 
-            var stackPanel = await LoadXaml(@"
+            var stackPanel = await LoadXaml<StackPanel>(@"
 <StackPanel>
     <materialDesign:TimePicker/>
 </StackPanel>");
-            var timePicker = await stackPanel.GetElement("/TimePicker");
-            var timePickerTextBox = await timePicker.GetElement("/TimePickerTextBox");
+            var timePicker = await stackPanel.GetElement<TimePicker>("/TimePicker");
+            var timePickerTextBox = await timePicker.GetElement<TimePickerTextBox>("/TimePickerTextBox");
 
             await timePicker.SetSelectedTime(new DateTime(2020, 8, 10, 1, 2, 0));
             await timePickerTextBox.MoveKeyboardFocus();
-            await timePickerTextBox.SendInput($"{text}");
+            await timePickerTextBox.SendKeyboardInput($"{text}");
             await timePicker.PickClock(1, 2);
 
             var actual = await timePickerTextBox.GetText();
@@ -330,15 +331,15 @@ namespace MaterialDesignThemes.UITests.WPF.TimePicker
         {
             await using var recorder = new TestRecorder(App);
 
-            var stackPanel = await LoadXaml(@"
+            var stackPanel = await LoadXaml<StackPanel>(@"
 <StackPanel>
     <materialDesign:TimePicker
         materialDesign:HintAssist.HelperTextFontSize=""20""/>
 </StackPanel>");
-            var timePicker = await stackPanel.GetElement("/TimePicker");
-            IVisualElement helpTextBlock = await timePicker.GetElement("/Grid/Canvas/TextBlock");
+            var timePicker = await stackPanel.GetElement<TimePicker>("/TimePicker");
+            var helpTextBlock = await timePicker.GetElement<TextBlock>("/Grid/Canvas/TextBlock");
 
-            double fontSize = await helpTextBlock.GetProperty<double>(TextBlock.FontSizeProperty.Name);
+            double fontSize = await helpTextBlock.GetFontSize();
 
             Assert.Equal(20, fontSize);
             recorder.Success();

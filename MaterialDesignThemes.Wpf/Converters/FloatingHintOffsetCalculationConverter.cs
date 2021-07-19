@@ -8,18 +8,25 @@ namespace MaterialDesignThemes.Wpf.Converters
 {
     internal class FloatingHintOffsetCalculationConverter : IMultiValueConverter
     {
-        public object Convert(object[] values, Type targetType, object? parameter, CultureInfo culture)
+        public object Convert(object?[] values, Type targetType, object? parameter, CultureInfo culture)
         {
-            var fontFamily = (FontFamily)values[0];
-            double fontSize = (double)values[1];
-            double floatingScale = (double)values[2];
+            if (values.Length > 3 &&
+                values[3] is Point floatingOffset &&
+                floatingOffset != HintAssist.DefaultFloatingOffset)
+            {
+                return floatingOffset;
+            }
+
+            var fontFamily = (FontFamily)values[0]!;
+            double fontSize = (double)values[1]!;
+            double floatingScale = (double)values[2]!;
 
             double hintHeight = fontFamily.LineSpacing * fontSize;
             double floatingHintHeight = hintHeight * floatingScale;
 
-            double offset = (values.Length > 3 ? values[3] : null) switch
+            double offset = (values.Length > 4 ? values[4] : null) switch
             {
-                Thickness padding => floatingHintHeight / 2 + padding.Top,
+                Thickness padding => (floatingHintHeight / 2) + padding.Top,
                 double parentHeight => (parentHeight - hintHeight + floatingHintHeight) / 2,
                 _ => floatingHintHeight
             };

@@ -41,7 +41,7 @@ steps:
   inputs:
     command: test
     projects: '**/*.UITests'
-    arguments: '--configuration $(buildConfiguration) --no-build'
+    arguments: '--configuration $(buildConfiguration) --no-build --blame-crash'
 
 - task: PublishPipelineArtifact@1
   name: "PublishUITestsScreenshots"

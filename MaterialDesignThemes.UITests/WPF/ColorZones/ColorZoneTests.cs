@@ -5,7 +5,7 @@ using XamlTest;
 using Xunit;
 using Xunit.Abstractions;
 
-namespace MaterialDesignThemes.UITests.WPF.ColorZone
+namespace MaterialDesignThemes.UITests.WPF.ColorZones
 {
     public class ColorZoneTests : TestBase
     {
@@ -30,7 +30,7 @@ namespace MaterialDesignThemes.UITests.WPF.ColorZone
         {
             await using var recorder = new TestRecorder(App);
 
-            IVisualElement colorZone = await LoadXaml(@$"
+            IVisualElement<ColorZone> colorZone = await LoadXaml<ColorZone>(@$"
 <materialDesign:ColorZone Mode=""{mode}""/>
 ");
             Color background = await GetThemeColor(backgroundBrush);

@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -217,7 +218,7 @@ namespace MaterialDesignThemes.Wpf
             if (dataGridCell?.Content is UIElement element)
             {
                 var dataGrid = (DataGrid)sender;
-                
+
                 // Check if the cursor actually hit the element and not just the cell
                 var mousePosition = mouseArgs.GetPosition(element);
                 var elementHitBox = new Rect(element.RenderSize);
@@ -232,6 +233,14 @@ namespace MaterialDesignThemes.Wpf
 
                     dataGrid.CurrentCell = new DataGridCellInfo(dataGridCell);
                     dataGrid.BeginEdit();
+                    //Begin edit likely changes the visual tree, trigger the mouse down event to cause the DataGrid to adjust selection
+                    var mouseDownEvent = new MouseButtonEventArgs(mouseArgs.MouseDevice, mouseArgs.Timestamp, mouseArgs.ChangedButton)
+                    {
+                        RoutedEvent = Mouse.MouseDownEvent,
+                        Source = mouseArgs.Source
+                    };
+
+                    dataGridCell.RaiseEvent(mouseDownEvent);
 
                     switch (dataGridCell?.Content)
                     {

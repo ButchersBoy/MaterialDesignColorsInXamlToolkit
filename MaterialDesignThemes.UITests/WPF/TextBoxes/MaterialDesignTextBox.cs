@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace MaterialDesignThemes.UITests.WPF.TextBox
+namespace MaterialDesignThemes.UITests.WPF.TextBoxes
 {
     public static class MaterialDesignTextBox
     {

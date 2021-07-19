@@ -39,6 +39,32 @@ xmlns:materialDesign=""http://materialdesigninxaml.net/winfx/xaml/themes"">
                 Assembly.GetExecutingAssembly().Location);
         }
 
+        public static async Task<IVisualElement<T>> CreateWindowWith<T>(this IApp app, string xaml)
+        {
+            string windowXaml = @$"<Window
+        xmlns=""http://schemas.microsoft.com/winfx/2006/xaml/presentation""
+        xmlns:x=""http://schemas.microsoft.com/winfx/2006/xaml""
+        xmlns:d=""http://schemas.microsoft.com/expression/blend/2008""
+        xmlns:mc=""http://schemas.openxmlformats.org/markup-compatibility/2006""
+        xmlns:materialDesign=""http://materialdesigninxaml.net/winfx/xaml/themes""
+        mc:Ignorable=""d""
+        Height=""800"" Width=""1100""
+        TextElement.Foreground=""{{DynamicResource MaterialDesignBody}}""
+        TextElement.FontWeight=""Regular""
+        TextElement.FontSize=""13""
+        TextOptions.TextFormattingMode=""Ideal"" 
+        TextOptions.TextRenderingMode=""Auto""
+        Background=""{{DynamicResource MaterialDesignPaper}}""
+        FontFamily=""{{materialDesign:MaterialDesignFont}}"" 
+        Title=""Test Window""
+        Topmost=""True""
+        WindowStartupLocation=""CenterScreen"">
+        {xaml}
+</Window>";
+            IWindow window = await app.CreateWindow(windowXaml);
+            return await window.GetElement<T>(".Content");
+        }
+
         public static async Task<IVisualElement> CreateWindowWith(this IApp app, string xaml)
         {
             string windowXaml = @$"<Window
@@ -57,6 +83,7 @@ xmlns:materialDesign=""http://materialdesigninxaml.net/winfx/xaml/themes"">
         Background=""{{DynamicResource MaterialDesignPaper}}""
         FontFamily=""{{materialDesign:MaterialDesignFont}}"" 
         Title=""Test Window""
+        Topmost=""True""
         WindowStartupLocation=""CenterScreen"">
         {xaml}
 </Window>";
@@ -84,6 +111,7 @@ xmlns:materialDesign=""http://materialdesigninxaml.net/winfx/xaml/themes"">
         Background=""{{DynamicResource MaterialDesignPaper}}""
         FontFamily=""{{materialDesign:MaterialDesignFont}}"" 
         Title=""Test Window""
+        Topmost=""True""
         WindowStartupLocation=""CenterScreen"">
         <local:{typeof(TControl).Name} />
 </Window>";

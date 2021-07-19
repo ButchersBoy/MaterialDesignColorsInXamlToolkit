@@ -5,7 +5,7 @@ using XamlTest;
 using Xunit;
 using Xunit.Abstractions;
 
-namespace MaterialDesignThemes.UITests.WPF.DatePicker
+namespace MaterialDesignThemes.UITests.WPF.DatePickers
 {
     public class DatePickerTests : TestBase
     {
@@ -20,15 +20,15 @@ namespace MaterialDesignThemes.UITests.WPF.DatePicker
         {
             await using var recorder = new TestRecorder(App);
 
-            var stackPanel = await LoadXaml(@"
+            var stackPanel = await LoadXaml<StackPanel>(@"
 <StackPanel>
     <DatePicker materialDesign:HintAssist.HelperTextFontSize=""20""/>
 </StackPanel>");
-            var timePicker = await stackPanel.GetElement("/DatePicker");
-            IVisualElement datePickerTextBox = await timePicker.GetElement("PART_TextBox");
-            IVisualElement helpTextBlock = await datePickerTextBox.GetElement("/Grid/Canvas/TextBlock");
+            var datePicker = await stackPanel.GetElement<DatePicker>("/DatePicker");
+            var datePickerTextBox = await datePicker.GetElement<TextBox>("PART_TextBox");
+            var helpTextBlock = await datePickerTextBox.GetElement<TextBlock>("/Grid/Canvas/TextBlock");
 
-            double fontSize = await helpTextBlock.GetProperty<double>(TextBlock.FontSizeProperty.Name);
+            double fontSize = await helpTextBlock.GetFontSize();
 
             Assert.Equal(20, fontSize);
             recorder.Success();

@@ -162,6 +162,7 @@
         <Setter Property="Foreground" Value="{Binding RelativeSource={RelativeSource AncestorType={x:Type FrameworkElement}}, Path=(TextElement.Foreground)}"/>
         <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
         <Setter Property="VerticalContentAlignment" Value="Top"/>
+        <Setter Property="wpf:ExpanderAssist.HeaderBackground" Value="Transparent" />
 
         <Setter Property="Template">
             <Setter.Value>
@@ -247,7 +248,7 @@
                                           IsChecked="{Binding Path=IsExpanded, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
                                           Style="{StaticResource MaterialDesignHorizontalHeaderStyle}"
                                           TextElement.FontSize="{TemplateBinding wpf:ExpanderAssist.HeaderFontSize}"
-                                          Opacity="0.87"                                          
+                                          Opacity="0.87"
                                           Foreground="{TemplateBinding Foreground}"
                                           Background="{TemplateBinding wpf:ExpanderAssist.HeaderBackground}"
                                           Content="{TemplateBinding Header}"
@@ -285,15 +286,11 @@
                         <Trigger Property="ExpandDirection" Value="Right">
                             <Setter Property="DockPanel.Dock" TargetName="HeaderSite" Value="Left"/>
                             <Setter Property="Style" TargetName="HeaderSite" Value="{StaticResource MaterialDesignVerticalHeaderStyle}"/>
-                            <!--<Setter Property="LayoutTransform.(TransformGroup.Children)[1].(RotateTransform.Angle)" TargetName="ContentSite" Value="90" />
-                            <Setter Property="Angle" TargetName="ContentPanelRotateTransform" Value="-90" />-->
                         </Trigger>
 
                         <Trigger Property="ExpandDirection" Value="Left">
                             <Setter Property="DockPanel.Dock" TargetName="HeaderSite" Value="Right"/>
                             <Setter Property="Style" TargetName="HeaderSite" Value="{StaticResource MaterialDesignVerticalHeaderStyle}"/>
-                            <!--<Setter Property="Angle" TargetName="ContentSiteRotateTransform" Value="-90" />
-                            <Setter Property="Angle" TargetName="ContentPanelRotateTransform" Value="90" />-->
                         </Trigger>
 
                         <Trigger Property="ExpandDirection" Value="Up">

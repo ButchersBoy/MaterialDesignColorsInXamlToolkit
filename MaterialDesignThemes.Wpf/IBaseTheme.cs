@@ -7,6 +7,7 @@ namespace MaterialDesignThemes.Wpf
         Color MaterialDesignValidationErrorColor { get; }
         Color MaterialDesignBackground { get; }
         Color MaterialDesignPaper { get; }
+        Color MaterialDesignPaperDark { get; }
         Color MaterialDesignCardBackground { get; }
         Color MaterialDesignToolBarBackground { get; }
         Color MaterialDesignBody { get; }

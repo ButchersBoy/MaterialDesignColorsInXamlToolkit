@@ -16,6 +16,7 @@ namespace MaterialDesignThemes.Wpf
         Color ValidationError { get; set; }
         Color Background { get; set; }
         Color Paper { get; set; }
+        Color PaperDark { get; set; }
         Color CardBackground { get; set; }
         Color ToolBarBackground { get; set; }
         Color Body { get; set; }

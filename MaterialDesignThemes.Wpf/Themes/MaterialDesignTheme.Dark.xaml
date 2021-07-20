@@ -7,6 +7,7 @@
 
     <SolidColorBrush x:Key="MaterialDesignBackground" Color="#FF000000" po:Freeze="True" />
     <SolidColorBrush x:Key="MaterialDesignPaper" Color="#FF303030" po:Freeze="True" />
+    <SolidColorBrush x:Key="MaterialDesignPaperDark" Color="#FF282828" po:Freeze="True" />
     <SolidColorBrush x:Key="MaterialDesignCardBackground" Color="#FF424242" po:Freeze="True" />
     <SolidColorBrush x:Key="MaterialDesignToolBarBackground" Color="#FF212121" po:Freeze="True" />
     <SolidColorBrush x:Key="MaterialDesignBody" Color="#DDFFFFFF" po:Freeze="True" />

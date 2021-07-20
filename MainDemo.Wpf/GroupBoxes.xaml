@@ -113,7 +113,8 @@
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="160" />
-                    <RowDefinition Height="160"/>
+                    <RowDefinition Height="160" />
+                    <RowDefinition Height="160" />
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition />
@@ -188,6 +189,45 @@
                         materialDesign:GroupBoxAssist.HeaderBackground="{DynamicResource MaterialDesignPaperDark}"
                         materialDesign:GroupBoxAssist.HeaderForeground="{DynamicResource PrimaryHueMidBrush}"
                         BorderThickness="0">
+                        <TextBlock Text="My Content"/>
+                    </GroupBox>
+                </smtx:XamlDisplay>
+                <smtx:XamlDisplay
+                    UniqueKey="groupbox_paper7"
+                    Grid.Column="0"
+                    Grid.Row="2">
+                    <GroupBox
+                        Header="Corner Radius"
+                        Style="{DynamicResource MaterialDesignPaperGroupBox}" Margin="16"
+                        materialDesign:GroupBoxAssist.CornerRadius="16"
+                        materialDesign:GroupBoxAssist.HeaderCornerRadius="16 16 0 0">
+                        <TextBlock Text="My Content"/>
+                    </GroupBox>
+                </smtx:XamlDisplay>
+                <smtx:XamlDisplay
+                    UniqueKey="groupbox_paper8"
+                    Grid.Column="1"
+                    Grid.Row="2">
+                    <GroupBox
+                        Header="Header Corner Radius"
+                        Style="{DynamicResource MaterialDesignPaperGroupBox}" Margin="16"
+                        materialDesign:GroupBoxAssist.HeaderBorderThickness="1"
+                        materialDesign:GroupBoxAssist.CornerRadius="4 4 0 0"
+                        materialDesign:GroupBoxAssist.HeaderCornerRadius="4">
+                        <TextBlock Text="My Content"/>
+                    </GroupBox>
+                </smtx:XamlDisplay>
+                <smtx:XamlDisplay
+                    UniqueKey="groupbox_paper9"
+                    Grid.Column="2"
+                    Grid.Row="2">
+                    <GroupBox
+                        Header="Corner Radius + Border"
+                        Style="{DynamicResource MaterialDesignPaperGroupBox}" Margin="16"
+                        materialDesign:GroupBoxAssist.CornerRadius="8"
+                        materialDesign:GroupBoxAssist.HeaderCornerRadius="8 8 0 0"
+                        BorderThickness="1"
+                        BorderBrush="{DynamicResource PrimaryHueMidBrush}">
                         <TextBlock Text="My Content"/>
                     </GroupBox>
                 </smtx:XamlDisplay>

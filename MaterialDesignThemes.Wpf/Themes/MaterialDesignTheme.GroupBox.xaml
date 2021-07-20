@@ -106,16 +106,43 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type GroupBox}">
-                    <Grid>
+                    <ControlTemplate.Resources>
+                        <converters:ShadowEdgeConverter x:Key="ShadowEdgeConverter" />
+                    </ControlTemplate.Resources>
+                    <Grid Background="Transparent">
                         <AdornerDecorator CacheMode="{Binding RelativeSource={RelativeSource Self}, Path=(wpf:ShadowAssist.CacheMode)}">
+                            <AdornerDecorator.OpacityMask>
+                                <MultiBinding Converter="{StaticResource ShadowEdgeConverter}">
+                                    <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="ActualWidth"/>
+                                    <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="ActualHeight"/>
+                                    <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="(wpf:ShadowAssist.ShadowDepth)" />
+                                    <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="(wpf:ShadowAssist.ShadowEdges)" />
+                                </MultiBinding>
+                            </AdornerDecorator.OpacityMask>
                             <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}"
-                                    Effect="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(wpf:ShadowAssist.ShadowDepth), Converter={x:Static converters:ShadowConverter.Instance}}">
+                                    Effect="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(wpf:ShadowAssist.ShadowDepth), Converter={x:Static converters:ShadowConverter.Instance}}"
+                                    CornerRadius="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(wpf:GroupBoxAssist.CornerRadius)}">
+                                <!--<Border.OpacityMask>
+                                    <VisualBrush>
+                                        <VisualBrush.Visual>
+                                            <Border 
+                                                Background="Black"
+                                                SnapsToDevicePixels="True"
+                                                CornerRadius="{Binding CornerRadius, RelativeSource={RelativeSource AncestorType=Border}}"
+                                                Width="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType=Border}}"
+                                                Height="{Binding ActualHeight, RelativeSource={RelativeSource AncestorType=Border}}"
+                                                />
+                                        </VisualBrush.Visual>
+                                    </VisualBrush>
+                                </Border.OpacityMask>-->
                                 <DockPanel>
                                     <Border DockPanel.Dock="Top" Padding="{TemplateBinding Padding}"
                                             BorderBrush="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(wpf:GroupBoxAssist.HeaderBorderBrush)}"
                                             BorderThickness="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(wpf:GroupBoxAssist.HeaderBorderThickness)}"
                                             Background="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(wpf:GroupBoxAssist.HeaderBackground)}"
-                                            TextBlock.Foreground="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(wpf:GroupBoxAssist.HeaderForeground)}">
+                                            TextBlock.Foreground="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(wpf:GroupBoxAssist.HeaderForeground)}"
+                                            CornerRadius="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(wpf:GroupBoxAssist.HeaderCornerRadius)}">
+                                      
                                         <ContentPresenter 
                                             ContentSource="Header" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
                                             ContentStringFormat="{TemplateBinding HeaderStringFormat}"

@@ -122,19 +122,6 @@
                             <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}"
                                     Effect="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(wpf:ShadowAssist.ShadowDepth), Converter={x:Static converters:ShadowConverter.Instance}}"
                                     CornerRadius="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(wpf:GroupBoxAssist.CornerRadius)}">
-                                <!--<Border.OpacityMask>
-                                    <VisualBrush>
-                                        <VisualBrush.Visual>
-                                            <Border 
-                                                Background="Black"
-                                                SnapsToDevicePixels="True"
-                                                CornerRadius="{Binding CornerRadius, RelativeSource={RelativeSource AncestorType=Border}}"
-                                                Width="{Binding ActualWidth, RelativeSource={RelativeSource AncestorType=Border}}"
-                                                Height="{Binding ActualHeight, RelativeSource={RelativeSource AncestorType=Border}}"
-                                                />
-                                        </VisualBrush.Visual>
-                                    </VisualBrush>
-                                </Border.OpacityMask>-->
                                 <DockPanel>
                                     <Border DockPanel.Dock="Top" Padding="{TemplateBinding Padding}"
                                             BorderBrush="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(wpf:GroupBoxAssist.HeaderBorderBrush)}"

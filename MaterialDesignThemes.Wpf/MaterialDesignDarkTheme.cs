@@ -7,7 +7,7 @@ namespace MaterialDesignThemes.Wpf
         public Color MaterialDesignValidationErrorColor { get; } = (Color)ColorConverter.ConvertFromString("#CF6679");
         public Color MaterialDesignBackground { get; } = (Color)ColorConverter.ConvertFromString("#FF000000");
         public Color MaterialDesignPaper { get; } = (Color)ColorConverter.ConvertFromString("#FF303030");
-        public Color MaterialDesignPaperDark { get; } = (Color)ColorConverter.ConvertFromString("#FF282828");
+        public Color MaterialDesignPaperDark { get; } = (Color)ColorConverter.ConvertFromString("#FF242424");
         public Color MaterialDesignCardBackground { get; } = (Color)ColorConverter.ConvertFromString("#FF424242");
         public Color MaterialDesignToolBarBackground { get; } = (Color)ColorConverter.ConvertFromString("#FF212121");
         public Color MaterialDesignBody { get; } = (Color)ColorConverter.ConvertFromString("#DDFFFFFF");

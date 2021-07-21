@@ -65,6 +65,7 @@ namespace MaterialDesignThemes.Wpf
             theme.ValidationError = baseTheme.MaterialDesignValidationErrorColor;
             theme.Background = baseTheme.MaterialDesignBackground;
             theme.Paper = baseTheme.MaterialDesignPaper;
+            theme.PaperDark = baseTheme.MaterialDesignPaperDark;
             theme.CardBackground = baseTheme.MaterialDesignCardBackground;
             theme.ToolBarBackground = baseTheme.MaterialDesignToolBarBackground;
             theme.Body = baseTheme.MaterialDesignBody;

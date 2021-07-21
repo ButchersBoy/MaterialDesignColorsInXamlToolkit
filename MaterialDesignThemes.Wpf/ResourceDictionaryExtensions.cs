@@ -64,6 +64,7 @@ namespace MaterialDesignThemes.Wpf
 
             SetSolidColorBrush(resourceDictionary, "MaterialDesignBackground", theme.Background);
             SetSolidColorBrush(resourceDictionary, "MaterialDesignPaper", theme.Paper);
+            SetSolidColorBrush(resourceDictionary, "MaterialDesignPaperDark", theme.PaperDark);
             SetSolidColorBrush(resourceDictionary, "MaterialDesignCardBackground", theme.CardBackground);
             SetSolidColorBrush(resourceDictionary, "MaterialDesignToolBarBackground", theme.ToolBarBackground);
             SetSolidColorBrush(resourceDictionary, "MaterialDesignBody", theme.Body);
@@ -167,6 +168,7 @@ namespace MaterialDesignThemes.Wpf
                 ToolForeground = GetColor("MaterialDesignToolForeground"),
                 ToolTipBackground = GetColor("MaterialDesignToolTipBackground"),
                 Paper = GetColor("MaterialDesignPaper"),
+                PaperDark = GetColor("MaterialDesignPaperDark"),
                 ValidationError = GetColor("MaterialDesignValidationErrorBrush")
             };
 

@@ -27,7 +27,8 @@
         
         <Grid.RowDefinitions>
             <RowDefinition/>
-            <RowDefinition/>
+            <RowDefinition Height="160"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
         <smtx:XamlDisplay
@@ -98,11 +99,186 @@
                 <TextBlock Text="My Content"/>
             </GroupBox>
         </smtx:XamlDisplay>
+        <smtx:XamlDisplay
+            UniqueKey="groupbox_paper0"
+            Grid.Column="2"
+            Grid.Row="1">
+            <GroupBox
+                Header="Paper Variant"
+                Style="{DynamicResource MaterialDesignPaperGroupBox}" Margin="16">
+                <TextBlock Text="My Content"/>
+            </GroupBox>
+        </smtx:XamlDisplay>
+        <Expander Header="Paper Styles" Grid.Row="2" Grid.ColumnSpan="3">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="160" />
+                    <RowDefinition Height="160" />
+                    <RowDefinition Height="160" />
+                    <RowDefinition Height="160" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <smtx:XamlDisplay
+                    UniqueKey="groupbox_paper1"
+                    Grid.Column="0"
+                    Grid.Row="0">
+                    <GroupBox
+                        Header="Tron"
+                        Style="{DynamicResource MaterialDesignPaperGroupBox}"
+                        BorderBrush="{DynamicResource PrimaryHueMidBrush}"
+                        BorderThickness="1"
+                        Margin="16">
+                        <TextBlock Text="My Content"/>
+                    </GroupBox>
+                </smtx:XamlDisplay>
+                <smtx:XamlDisplay
+                    UniqueKey="groupbox_paper2"
+                    Grid.Column="1"
+                    Grid.Row="0">
+                    <GroupBox
+                        Header="Header Border"
+                        Style="{DynamicResource MaterialDesignPaperGroupBox}" Margin="16"
+                        materialDesign:GroupBoxAssist.HeaderBorderThickness="1">
+                        <TextBlock Text="My Content"/>
+                    </GroupBox>
+                </smtx:XamlDisplay>
+                <smtx:XamlDisplay
+                    UniqueKey="groupbox_paper3"
+                    Grid.Column="2"
+                    Grid.Row="0">
+                    <GroupBox
+                        Header="Header Border Alt"
+                        Style="{DynamicResource MaterialDesignPaperGroupBox}" Margin="16"
+                        materialDesign:GroupBoxAssist.HeaderBorderThickness="0 1">    
+                        <TextBlock Text="My Content"/>
+                    </GroupBox>
+                </smtx:XamlDisplay>
+                <smtx:XamlDisplay
+                    UniqueKey="groupbox_paper4"
+                    Grid.Column="0"
+                    Grid.Row="1">
+                    <GroupBox
+                        Header="Paper Border"
+                        Style="{DynamicResource MaterialDesignPaperGroupBox}"
+                        BorderThickness="4"
+                        Margin="16">
+                        <TextBlock Text="My Content"/>
+                    </GroupBox>
+                </smtx:XamlDisplay>
+                <smtx:XamlDisplay
+                    UniqueKey="groupbox_paper5"
+                    Grid.Column="1"
+                    Grid.Row="1">
+                    <GroupBox
+                        Header="No Shadow"
+                        Style="{DynamicResource MaterialDesignPaperGroupBox}" Margin="16"
+                        materialDesign:ShadowAssist.ShadowDepth="Depth0">
+                        <TextBlock Text="My Content"/>
+                    </GroupBox>
+                </smtx:XamlDisplay>
+                <smtx:XamlDisplay
+                    UniqueKey="groupbox_paper6"
+                    Grid.Column="2"
+                    Grid.Row="1">
+                    <GroupBox
+                        Header="Dark Header + Primary Foreground"
+                        Style="{DynamicResource MaterialDesignPaperGroupBox}" Margin="16"
+                        materialDesign:GroupBoxAssist.HeaderBackground="{DynamicResource MaterialDesignPaperDark}"
+                        materialDesign:GroupBoxAssist.HeaderForeground="{DynamicResource PrimaryHueMidBrush}"
+                        materialDesign:GroupBoxAssist.HeaderBorderThickness="0"
+                        BorderThickness="0">
+                        <TextBlock Text="My Content"/>
+                    </GroupBox>
+                </smtx:XamlDisplay>
+                <smtx:XamlDisplay
+                    UniqueKey="groupbox_paper7"
+                    Grid.Column="0"
+                    Grid.Row="2">
+                    <GroupBox
+                        Header="Corner Radius"
+                        Style="{DynamicResource MaterialDesignPaperGroupBox}" Margin="16"
+                        materialDesign:GroupBoxAssist.CornerRadius="16"
+                        materialDesign:GroupBoxAssist.HeaderCornerRadius="16 16 0 0">
+                        <TextBlock Text="My Content"/>
+                    </GroupBox>
+                </smtx:XamlDisplay>
+                <smtx:XamlDisplay
+                    UniqueKey="groupbox_paper8"
+                    Grid.Column="1"
+                    Grid.Row="2">
+                    <GroupBox
+                        Header="Header Corner Radius"
+                        Style="{DynamicResource MaterialDesignPaperGroupBox}" Margin="16"
+                        materialDesign:GroupBoxAssist.HeaderBorderThickness="1"
+                        materialDesign:GroupBoxAssist.CornerRadius="4 4 0 0"
+                        materialDesign:GroupBoxAssist.HeaderCornerRadius="4">
+                        <TextBlock Text="My Content"/>
+                    </GroupBox>
+                </smtx:XamlDisplay>
+                <smtx:XamlDisplay
+                    UniqueKey="groupbox_paper9"
+                    Grid.Column="2"
+                    Grid.Row="2">
+                    <GroupBox
+                        Header="Corner Radius + Border"
+                        Style="{DynamicResource MaterialDesignPaperGroupBox}" Margin="16"
+                        materialDesign:GroupBoxAssist.CornerRadius="8"
+                        materialDesign:GroupBoxAssist.HeaderCornerRadius="8 8 0 0"
+                        BorderThickness="1"
+                        BorderBrush="{DynamicResource PrimaryHueMidBrush}">
+                        <TextBlock Text="My Content"/>
+                    </GroupBox>
+                </smtx:XamlDisplay>
+                <smtx:XamlDisplay
+                    UniqueKey="groupbox_paper10"
+                    Grid.Column="0"
+                    Grid.Row="3">
+                    <GroupBox
+                        Header="Subtle"
+                        Style="{DynamicResource MaterialDesignPaperGroupBox}" Margin="16"
+                        materialDesign:GroupBoxAssist.HeaderBorderBrush="{DynamicResource MaterialDesignPaperDark}"
+                        materialDesign:GroupBoxAssist.HeaderBorderThickness="0 0 0 2"
+                        BorderThickness="4">
+                        <TextBlock Text="My Content"/>
+                    </GroupBox>
+                </smtx:XamlDisplay>
+                <smtx:XamlDisplay
+                    UniqueKey="groupbox_paper11"
+                    Grid.Column="1"
+                    Grid.Row="3">
+                    <GroupBox
+                        Header="Foreground"
+                        Style="{DynamicResource MaterialDesignPaperGroupBox}" Margin="16"
+                        materialDesign:GroupBoxAssist.HeaderBorderBrush="{DynamicResource MaterialDesignPaperDark}"
+                        materialDesign:GroupBoxAssist.HeaderBorderThickness="0 0 0 2"
+                        BorderThickness="4"
+                        materialDesign:GroupBoxAssist.HeaderForeground="{DynamicResource PrimaryHueMidBrush}">
+                        <TextBlock Text="My Content"/>
+                    </GroupBox>
+                </smtx:XamlDisplay>
+                <smtx:XamlDisplay
+                    UniqueKey="groupbox_paper12"
+                    Grid.Column="2"
+                    Grid.Row="3">
+                    <GroupBox
+                        Header="Secondary"
+                        Style="{DynamicResource MaterialDesignPaperGroupBox}" Margin="16"
+                        materialDesign:GroupBoxAssist.HeaderBorderBrush="{DynamicResource SecondaryHueMidBrush}">
+                        <TextBlock Text="My Content"/>
+                    </GroupBox>
+                </smtx:XamlDisplay>
+            </Grid>
+        </Expander>
+        
 
         <smtx:XamlDisplay
             UniqueKey="groupbox_6"
             Grid.Column="0"
-            Grid.Row="2">
+            Grid.Row="3">
             <GroupBox
                 Header="Card Group Box"
                 Style="{DynamicResource MaterialDesignCardGroupBox}"
@@ -135,7 +311,7 @@
         <smtx:XamlDisplay
             UniqueKey="groupbox_7"
             Grid.Column="1"
-            Grid.Row="2">
+            Grid.Row="3">
             <GroupBox
                 Header="Card Group Box Accent"
                 Style="{DynamicResource MaterialDesignCardGroupBox}"
@@ -169,7 +345,7 @@
         <smtx:XamlDisplay
             UniqueKey="groupbox_8"
             Grid.Column="2"
-            Grid.Row="2">
+            Grid.Row="3">
             <GroupBox
                 Header="Card Group Box Custom"
                 Style="{DynamicResource MaterialDesignCardGroupBox}"
